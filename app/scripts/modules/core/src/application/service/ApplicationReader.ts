@@ -40,6 +40,7 @@ export class ApplicationReader {
       });
   }
 
+<<<<<<< HEAD
   public static getApplicationPermissions(applicationName: string): PromiseLike<any> {
     return REST('/applications')
       .path(applicationName)
@@ -56,6 +57,22 @@ export class ApplicationReader {
     return REST('/applications')
       .path(name)
       .query({ expand: expand })
+=======
+  public static getApplicationPermissions(applicationName: string): PromiseLike < any > {
+      return API.one('applications', applicationName)
+          .withParams({
+              expand: false,
+          })
+          .get()
+          .then((application: Application) => {
+              return application.attributes.permissions;
+          });
+  }
+
+  public static getApplication(name: string, expand = true): IPromise<Application> {
+    return API.one('applications', name)
+      .withParams({ expand: expand })
+>>>>>>> 21ea9dbe7 (Merge pull request #2 from sanopsmx/release-1.22.x)
       .get()
       .then((fromServer: Application) => {
         const configs = ApplicationDataSourceRegistry.getDataSources();
