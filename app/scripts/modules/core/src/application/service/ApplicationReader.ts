@@ -41,6 +41,17 @@ export class ApplicationReader {
       });
   }
 
+  public static getApplicationPermissions(applicationName: string): PromiseLike < any > {
+      return API.one('applications', applicationName)
+          .withParams({
+              expand: false,
+          })
+          .get()
+          .then((application: Application) => {
+              return application.attributes.permissions;
+          });
+  }
+
   public static getApplication(name: string, expand = true): IPromise<Application> {
     return API.one('applications', name)
       .withParams({ expand: expand })
