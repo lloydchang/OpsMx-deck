@@ -363,7 +363,11 @@ const helpContents: { [key: string]: string } = {
   'pipeline.config.trigger.runAsUser':
     "The current user must have access to the specified service account, and the service account must have access to the current application. Otherwise, you'll receive an 'Access is denied' error.",
   'pipeline.config.trigger.authorizedUser':
+<<<<<<< HEAD
     "The current user must have the permission to approve the manual judgment stage. Otherwise, you'll not be able continue to the next pipeline stage.",
+=======
+        "The current user must have the permission to approve the manual judgment stage. Otherwise, you'll not be able continue to the next pipeline stage.",
+>>>>>>> 24dbe8d0e (Added manual judgment feature.)
   'pipeline.config.script.repoUrl':
     '<p>Path to the repo hosting the scripts in Stash. (e.g. <samp>CDL/mimir-scripts</samp>). Leave empty to use the default.</p>',
   'pipeline.config.script.repoBranch':
