@@ -32,6 +32,7 @@ export interface ISortFilter {
   instanceType: ITrueKeyModel;
   labels: ITrueKeyModel;
   listInstances: boolean;
+  loadBalancerType: ITrueKeyModel;
   maxInstances: number;
   minInstances: number;
   multiselect: boolean;
@@ -45,6 +46,7 @@ export interface ISortFilter {
   showDurations: boolean;
   stack: ITrueKeyModel;
   status: ITrueKeyModel;
+  tags: { [key: string]: any };
 }
 
 export interface IFilterModel {
