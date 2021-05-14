@@ -3,12 +3,12 @@ import Select, { Option } from 'react-select';
 
 import { Application } from 'core/application/application.model';
 import { ApplicationReader } from 'core/application/service/ApplicationReader';
+import { ApplicationReader } from 'core/application/service/ApplicationReader';
+import { AuthenticationService } from 'core/authentication';
 import { AuthenticationService } from 'core/authentication';
 import { IExecution, IExecutionStage } from 'core/domain';
 import { Markdown } from 'core/presentation/Markdown';
 import { NgReact, ReactInjector } from 'core/reactShims';
-import { ApplicationReader } from 'core/application/service/ApplicationReader';
-import { AuthenticationService } from 'core/authentication';
 
 export interface IManualJudgmentApprovalProps {
   execution: IExecution;
@@ -42,7 +42,6 @@ export class ManualJudgmentApproval extends React.Component<
   }
 
   public componentDidMount() {
-<<<<<<< HEAD
     const applicationName = this.props.execution.application;
     ApplicationReader.getApplicationPermissions(applicationName).then((result) => {
       if (result) {
@@ -54,19 +53,6 @@ export class ManualJudgmentApproval extends React.Component<
     this.setState({
       userRoles: AuthenticationService.getAuthenticatedUser().roles,
     });
-=======
-      const applicationName = this.props.execution.application;
-      ApplicationReader.getApplicationPermissions(applicationName).then(result => {
-          if (result) {
-              this.setState({
-                  applicationRoles: result,
-              });
-          }
-      });
-      this.setState({
-          userRoles: AuthenticationService.getAuthenticatedUser().roles,
-      });
->>>>>>> 21ea9dbe7 (Merge pull request #2 from sanopsmx/release-1.22.x)
   }
 
   private provideJudgment(judgmentDecision: string): void {
@@ -77,7 +63,6 @@ export class ManualJudgmentApproval extends React.Component<
   }
 
   private isManualJudgmentStageNotAuthorized(): boolean {
-<<<<<<< HEAD
     let isStageNotAuthorized = true;
     let returnOnceFalse = true;
     const { applicationRoles, userRoles } = this.state;
@@ -102,40 +87,6 @@ export class ManualJudgmentApproval extends React.Component<
       }
     });
     return isStageNotAuthorized;
-=======
-      let isStageNotAuthorized = true;
-      let returnOnceFalse = true;
-      const {
-          applicationRoles,
-          userRoles
-      } = this.state;
-      const stageRoles = this.props.stage?.context?.selectedStageRoles || [];
-      if (!stageRoles.length) {
-          isStageNotAuthorized = false;
-          return isStageNotAuthorized;
-      }
-      const {
-          CREATE,
-          EXECUTE,
-          WRITE
-      } = applicationRoles;
-      userRoles.forEach(userRole => {
-          if (returnOnceFalse) {
-              if (stageRoles.includes(userRole)) {
-                  isStageNotAuthorized = (WRITE || []).includes(userRole) ||
-                      (EXECUTE || []).includes(userRole) ||
-                      (CREATE || []).includes(userRole);
-                  if (isStageNotAuthorized) {
-                      isStageNotAuthorized = false;
-                      returnOnceFalse = false;
-                  } else {
-                      isStageNotAuthorized = true;
-                  }
-              }
-          }
-      })
-      return isStageNotAuthorized;
->>>>>>> 21ea9dbe7 (Merge pull request #2 from sanopsmx/release-1.22.x)
   }
 
   private isSubmitting(decision: string): boolean {
