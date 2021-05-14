@@ -3,8 +3,6 @@ import Select, { Option } from 'react-select';
 
 import { Application } from 'core/application/application.model';
 import { ApplicationReader } from 'core/application/service/ApplicationReader';
-import { ApplicationReader } from 'core/application/service/ApplicationReader';
-import { AuthenticationService } from 'core/authentication';
 import { AuthenticationService } from 'core/authentication';
 import { IExecution, IExecutionStage } from 'core/domain';
 import { Markdown } from 'core/presentation/Markdown';
