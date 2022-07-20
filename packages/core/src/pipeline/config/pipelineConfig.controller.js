@@ -15,13 +15,16 @@ module(CORE_PIPELINE_CONFIG_PIPELINECONFIG_CONTROLLER, [UIROUTER_ANGULARJS]).con
   '$state',
   '$stateParams',
   'app',
-  function ($scope, $state, $stateParams, app) {
+  '$location',
+  function ($scope, $state, $stateParams, app, $location) {
     this.application = app;
     this.state = {
       pipelinesLoaded: false,
     };
 
     this.containsJinja = (source) => source && (source.includes('{{') || source.includes('{%'));
+
+    $scope.fromISD = $location.$$search.fromISD ? true : false;
 
     this.initialize = () => {
       this.pipelineConfig = _.find(app.pipelineConfigs.data, { id: $stateParams.pipelineId });
