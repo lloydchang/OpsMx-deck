@@ -7,6 +7,7 @@ import type { Application } from './application.model';
 import { RecentHistoryService } from '../history';
 import { createApolloClient } from '../managed/graphql/client';
 import { ApplicationNavigation } from './nav/ApplicationNavigation';
+import { UrlParser } from '../navigation/urlParser';
 import { DebugWindow } from '../utils/consoleDebug';
 
 import './application.less';
@@ -59,10 +60,12 @@ export class ApplicationComponent extends React.Component<IApplicationComponentP
 
   public render() {
     const { app } = this.props;
+    const [, queryString] = window.location.href.split('?');
+    const queryParams = UrlParser.parseQueryString(queryString);
 
     return (
       <div className="application">
-        {!app.notFound && !app.hasError && <ApplicationNavigation app={app} />}
+        {!app.notFound && !app.hasError && !queryParams['fromISD'] && <ApplicationNavigation app={app} />}
         {app.notFound && (
           <div>
             <h2 className="text-center">Application Not Found</h2>

@@ -63,6 +63,7 @@ function configure(env, webpackOpts) {
     output: {
       path: path.join(DECK_ROOT, 'build', 'webpack', process.env.SPINNAKER_ENV || ''),
       filename: '[name].js',
+      publicPath: '/deck/'
     },
     devtool: IS_PRODUCTION ? 'source-map' : 'eval',
     optimization: {

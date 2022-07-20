@@ -2,7 +2,7 @@
 
 var gateHost = '{%gate.baseUrl%}';
 var atlasWebComponentsUrl = '{%canary.atlasWebComponentsUrl%}';
-var authEnabled = '{%features.auth%}' === 'true';
+var authEnabled = false; //'{%features.auth%}' === 'true';
 var authEndpoint = gateHost + '/auth/user';
 var bakeryDetailUrl = gateHost + '/bakery/logs/{{context.region}}/{{context.status.resourceId}}';
 var canaryFeatureDisabled = '{%canary.featureEnabled%}' !== 'true';
