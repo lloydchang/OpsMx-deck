@@ -23,6 +23,7 @@ import { EntityNotifications } from '../../../entityTag/notifications/EntityNoti
 import { Execution } from '../execution/Execution';
 import { ExecutionAction } from '../executionAction/ExecutionAction';
 import { ManualExecutionModal } from '../../manualExecution';
+import { UrlParser } from '../../../navigation/urlParser';
 import { Overridable } from '../../../overrideRegistry';
 import type { Placement } from '../../../presentation/Placement';
 import { Popover } from '../../../presentation/Popover';
@@ -277,6 +278,9 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
     const pipelineDescription = pipelineConfig && pipelineConfig.description;
     const hasRunningExecutions = group.runningExecutions && group.runningExecutions.length > 0;
 
+    const [, queryString] = window.location.href.split('?');
+    const queryParams = UrlParser.parseQueryString(queryString);
+
     const deploymentAccountLabels = without(
       this.state.deploymentAccounts || [],
       ...(group.targetAccounts || []),
@@ -363,10 +367,13 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                   <div className={groupActionsClassName}>
                     {pipelineConfig && <TriggersTag pipeline={pipelineConfig} />}
                     {pipelineConfig && <NextRunTag pipeline={pipelineConfig} />}
-                    <ExecutionAction handleClick={this.handleConfigureClicked}>
-                      <span className="glyphicon glyphicon-cog" />
-                      {' Configure'}
-                    </ExecutionAction>
+
+                    {!queryParams['fromISD'] && (
+                      <ExecutionAction handleClick={this.handleConfigureClicked}>
+                        <span className="glyphicon glyphicon-cog" />
+                        {' Configure'}
+                      </ExecutionAction>
+                    )}
                     {pipelineConfig && (
                       <ExecutionAction
                         handleClick={this.handleTriggerClicked}

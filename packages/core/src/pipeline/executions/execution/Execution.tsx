@@ -19,6 +19,7 @@ import { ConfirmationModalService } from '../../../confirmationModal';
 import { StageExecutionDetails } from '../../details/StageExecutionDetails';
 import type { IExecution, IExecutionStageSummary, IPipeline, IRestartDetails } from '../../../domain';
 import type { ISortFilter } from '../../../filterModel';
+import { UrlParser } from '../../../navigation';
 import { Overridable } from '../../../overrideRegistry';
 import { Tooltip } from '../../../presentation/Tooltip';
 import { ReactInjector } from '../../../reactShims';
@@ -373,6 +374,9 @@ export class Execution extends React.PureComponent<IExecutionProps, IExecutionSt
 
     const hasParentExecution = !!execution.trigger?.parentExecution;
 
+    const [, queryString] = window.location.href.split('?');
+    const queryParams = UrlParser.parseQueryString(queryString);
+
     return (
       <div className={className} id={`execution-${execution.id}`} ref={this.wrapperRef}>
         <div className={`execution-overview group-by-${sortFilter.groupBy}`}>
@@ -384,7 +388,7 @@ export class Execution extends React.PureComponent<IExecutionProps, IExecutionSt
                 {title || execution.name}
               </h4>
             )}
-            {showConfigureButton && (
+            {showConfigureButton && !queryParams['fromISD'] && (
               <div className="flex-pull-right">
                 <Tooltip value="Navigate to Pipeline Configuration">
                   <UISref
