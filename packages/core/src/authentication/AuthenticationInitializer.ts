@@ -47,7 +47,7 @@ export class AuthenticationInitializer {
   }
 
   private static openLoggedOutModal(): void {
-    LoggedOutModal.show();
+    if (!$location.search().fromISD) LoggedOutModal.show();
   }
 
   public static loginRedirect(): void {
