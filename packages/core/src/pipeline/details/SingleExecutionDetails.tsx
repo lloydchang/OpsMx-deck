@@ -6,6 +6,7 @@ import { Application } from '../../application/application.model';
 import { IExecution, IPipeline } from '../../domain';
 import { Execution } from '../executions/execution/Execution';
 import { ManualExecutionModal } from '../manualExecution';
+import { UrlParser } from '../../navigation';
 import { useData, useLatestPromise } from '../../presentation';
 import { IStateChange, ReactInjector } from '../../reactShims';
 import { SchedulerFactory } from '../../scheduler';
@@ -156,6 +157,8 @@ export function SingleExecutionDetails(props: ISingleExecutionDetailsProps) {
   // Eagerly hide the main execution when we are transitioning to an ancestor and are not rendering that ancestor
   // Once we've reached it, an effect will re-setTransitioningToAncestor to blank
   const hideMainExecution = !(!transitioningToAncestor || transitioningToAncestor === execution.id);
+  const [, queryString] = window.location.href.split('?');
+  const queryParams = UrlParser.parseQueryString(queryString);
 
   return (
     <div style={{ width: '100%', paddingTop: 0 }}>
@@ -164,15 +167,17 @@ export function SingleExecutionDetails(props: ISingleExecutionDetailsProps) {
           <div className="col-md-10 col-md-offset-1">
             <div className="single-execution-details">
               <div className="flex-container-h baseline">
-                <h3>
-                  <UISref to="^.executions">
-                    <a className="clickable">{app.name}</a>
-                  </UISref>
-                  {' - '}
-                  <UISref to="^.executions" params={{ pipeline: execution.name }}>
-                    <a className="clickable">{execution.name}</a>
-                  </UISref>
-                </h3>
+                {!queryParams['fromISD'] && (
+                  <h3>
+                    <UISref to="^.executions">
+                      <a className="clickable">{app.name}</a>
+                    </UISref>
+                    {' - '}
+                    <UISref to="^.executions" params={{ pipeline: execution.name }}>
+                      <a className="clickable">{execution.name}</a>
+                    </UISref>
+                  </h3>
+                )}
 
                 <div className="form-group checkbox flex-pull-right">
                   <label>
