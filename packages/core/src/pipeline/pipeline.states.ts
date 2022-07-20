@@ -69,7 +69,7 @@ module(PIPELINE_STATES, [APPLICATION_STATE_PROVIDER]).config([
 
     const executions: INestedState = {
       name: 'executions',
-      url: `?startManualExecution&${stateConfigProvider.paramsToQuery(filterModelConfig)}`,
+      url: `?startManualExecution&${stateConfigProvider.paramsToQuery(filterModelConfig)}&fromISD`,
       views: {
         pipelines: { component: Executions, $type: 'react' },
       },
