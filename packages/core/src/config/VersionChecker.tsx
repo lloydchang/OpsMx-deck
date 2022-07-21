@@ -1,5 +1,7 @@
 import { $http, $log } from 'ngimport';
 import React from 'react';
+// @ts-ignore
+import { UrlParser } from '../navigation';
 
 import { IScheduler, SchedulerFactory } from '../scheduler/SchedulerFactory';
 import { timestamp } from '../utils/timeFormatters';
@@ -17,10 +19,15 @@ export class VersionChecker {
   private static newVersionSeenCount = 0;
   private static scheduler: IScheduler;
 
+  public static queryString = window.location.href.split('?');
+  public static queryParams = UrlParser.parseQueryString(VersionChecker.queryString[1]);
+
   public static initialize(): void {
     $log.debug('Deck version', this.currentVersion.version, 'created', timestamp(this.currentVersion.created));
     this.scheduler = SchedulerFactory.createScheduler();
-    this.scheduler.subscribe(() => this.checkVersion());
+    this.scheduler.subscribe(() => {
+      if (!VersionChecker.queryParams['fromISD']) this.checkVersion();
+    });
   }
 
   private static checkVersion(): void {
