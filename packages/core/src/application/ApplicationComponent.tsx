@@ -84,7 +84,7 @@ export class ApplicationComponent extends React.Component<IApplicationComponentP
         )}
         <ApplicationContextProvider app={app}>
           <ApolloProvider client={this.apolloClient.client}>
-            <div className="container scrollable-columns">
+            <div className={queryParams['fromISD'] ? 'container scrollable-columns from-isd-parent' : 'container scrollable-columns'}>
               <UIView className="secondary-panel" name="insight" />
             </div>
           </ApolloProvider>
