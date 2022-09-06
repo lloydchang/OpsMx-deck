@@ -142,7 +142,7 @@ export class DeployManifestStageForm extends React.Component<
           </StageConfigField>
         )}
         <hr />
-        <h4>Manifest Configuration</h4>
+        <h4>Manifest Configuration *</h4>
         <StageConfigField label="Manifest Source" helpKey="kubernetes.manifest.source">
           <RadioButtonInput
             options={this.getSourceOptions()}
