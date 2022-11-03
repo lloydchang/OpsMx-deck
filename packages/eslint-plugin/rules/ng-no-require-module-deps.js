@@ -9,25 +9,27 @@ const fs = require('fs');
  * @category conventions
  * @sinceAngularVersion 1.x
  */
-const rule = function(context) {
+const rule = function (context) {
   return {
-    ArrayExpression: function(node) {
+    ArrayExpression: function (node) {
       if (isInAngularModuleCall(node)) {
-        const requireDotNames = node.elements.map(element => getRequireDotNameNode(element)).filter(x => !!x);
+        const requireDotNames = node.elements.map((element) => getRequireDotNameNode(element)).filter((x) => !!x);
         requireDotNames.forEach(([node, relativePath]) => {
           const message = `Prefer 'import { ANGULARJS_MODULE } from "./module"' over 'require("./module").name'`;
           const fix = getFixForRequireDotName(node, context.getFilename(), relativePath);
           context.report({ node, message, fix });
         });
 
-        const requireDotAnythings = node.elements.map(element => getRequireDotAnythingNode(element)).filter(x => !!x);
+        const requireDotAnythings = node.elements
+          .map((element) => getRequireDotAnythingNode(element))
+          .filter((x) => !!x);
         requireDotAnythings.forEach(([node, requiredString, propertyName]) => {
           const message = `Prefer 'import { default as ANGULARJS_MODULE } from "./module"' over 'require("./module").default'`;
           const fix = getFixForRequireDotAnything(node, requiredString, propertyName);
           context.report({ node, message, fix });
         });
 
-        const bareRequires = node.elements.map(element => getBareRequireNode(element)).filter(x => !!x);
+        const bareRequires = node.elements.map((element) => getBareRequireNode(element)).filter((x) => !!x);
         bareRequires.forEach(([node, requiredString]) => {
           const message = `Prefer 'import ANGULARJS_LIBRARY from "angularjs-library"' over 'require("angularjs-library")'`;
           const fix = getFixForBareRequire(node, requiredString);
@@ -52,7 +54,7 @@ angular.module('module', [
 ]);
  */
 function getFixForBareRequire(node, requiredString) {
-  return function(fixer) {
+  return function (fixer) {
     const variableName = requiredString.replace(/[^\w_]/g, '_').toUpperCase();
     const lastImport = findLastImportStatement(node);
     const importStatement = `\nimport ${variableName} from '${requiredString}';`;
@@ -78,7 +80,7 @@ angular.module('module', [
 ]);
  */
 function getFixForRequireDotAnything(node, requiredString, property) {
-  return function(fixer) {
+  return function (fixer) {
     const variableName = requiredString
       .replace(/^[^\w_]*/g, '')
       .replace(/[^\w_]/g, '_')
@@ -120,7 +122,7 @@ function getFixForRequireDotName(node, filename, relativePath) {
         const match = /export const name = ([\w_]*);/.exec(fileSource);
         if (match) {
           const variableName = match[1];
-          return function(fixer) {
+          return function (fixer) {
             const lastImport = findLastImportStatement(node);
             const importStatement = `\nimport { ${variableName} } from '${relativePath}';`;
             if (lastImport) {
@@ -142,7 +144,7 @@ function findLastImportStatement(_node) {
   }
 
   if (program && program.type === 'Program') {
-    const imports = program.body.filter(node => node.type === 'ImportDeclaration');
+    const imports = program.body.filter((node) => node.type === 'ImportDeclaration');
     if (imports.length) {
       return imports[imports.length - 1];
     }

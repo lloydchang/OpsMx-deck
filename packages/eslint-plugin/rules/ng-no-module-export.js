@@ -7,7 +7,7 @@
  * @category conventions
  * @sinceAngularVersion 1.x
  */
-const rule = function(context) {
+const rule = function (context) {
   function getSuggestedVariableNameForFile() {
     const filename = context.getFilename();
     if (filename.includes('/modules/')) {
@@ -21,7 +21,7 @@ const rule = function(context) {
   }
 
   return {
-    AssignmentExpression: function(node) {
+    AssignmentExpression: function (node) {
       const { left = {}, right = {} } = node;
       const isModuleExports = isModuleExportMemberExpression(left);
       const moduleNameNode = getAngularModuleNameNode(right);

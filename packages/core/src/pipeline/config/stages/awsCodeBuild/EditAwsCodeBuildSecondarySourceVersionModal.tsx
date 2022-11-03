@@ -4,13 +4,7 @@ import { Modal } from 'react-bootstrap';
 
 import { HelpField } from '../../../../help';
 import { ModalClose, SubmitButton } from '../../../../modal';
-import { 
-  FormikFormField,
-  IFormInputProps,
-  ReactModal,
-  SpinFormik,
-  TextInput
-} from '../../../../presentation';
+import { FormikFormField, IFormInputProps, ReactModal, SpinFormik, TextInput } from '../../../../presentation';
 import { IEditAwsCodeBuildSourceModalProps } from './EditAwsCodeBuildSourceModal';
 import { IAwsCodeBuildSecondarySourcesVersion } from './IAwsCodeBuildSource';
 

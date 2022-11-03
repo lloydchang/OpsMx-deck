@@ -35,6 +35,7 @@ import { IRetryablePromise } from '../../../utils/retryablePromise';
 import { Spinner } from '../../../widgets/spinners/Spinner';
 
 import './executionGroup.less';
+import { ConfirmationModalService } from '../../../confirmationModal';
 
 const ACCOUNT_TAG_OVERFLOW_LIMIT = 1;
 
@@ -139,6 +140,9 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
         this.setState({ poll: monitor });
         return monitor.promise;
       })
+      .catch((exception) => {
+        throw exception ? exception : null;
+      })
       .finally(() => {
         this.setState({ triggeringExecution: false });
       });
@@ -164,7 +168,23 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
           trigger: trigger,
           currentlyRunningExecutions: this.props.group.runningExecutions,
         })
-          .then((command) => this.startPipeline(command))
+          .then((command) => {
+            this.startPipeline(command)
+              .then((resp) => {
+                console.log(resp);
+              })
+              .catch((exception) => {
+                console.log(exception);
+                ConfirmationModalService.confirm({
+                  header: `Run Pipeline`,
+                  buttonText: 'Okay',
+                  body: `<div class="alert alert-danger">
+                <p>Could not run pipeline.</p>
+                <p><b>Reason:</b> Access denied to pipeline ${command.pipelineName} - required authorization: EXECUTE</p>
+                </div>`,
+                });
+              });
+          })
           .catch(() => {}),
       );
   }

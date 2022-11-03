@@ -4,15 +4,10 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 
 import { StageArtifactSelector } from '../../../../artifact';
-import {
-  IArtifact,
-  IExpectedArtifact,
-  IPipeline,
-  IStage
-} from '../../../../domain';
+import { IArtifact, IExpectedArtifact, IPipeline, IStage } from '../../../../domain';
 import { HelpField } from '../../../../help';
 import { ModalClose, SubmitButton } from '../../../../modal';
-import { 
+import {
   FormikFormField,
   FormValidator,
   IFormInputProps,
@@ -20,7 +15,7 @@ import {
   ReactModal,
   ReactSelectInput,
   SpinFormik,
-  TextInput
+  TextInput,
 } from '../../../../presentation';
 import {
   EXCLUDED_ARTIFACT_TYPES,

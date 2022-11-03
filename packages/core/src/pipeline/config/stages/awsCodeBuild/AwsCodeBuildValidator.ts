@@ -1,5 +1,5 @@
 import { IStage } from '../../../../domain';
-import { FormValidator } from '../../../../presentation'
+import { FormValidator } from '../../../../presentation';
 import { IContextualValidator } from '../FormikStageConfig';
 
 export const validate: IContextualValidator = (stage: IStage) => {

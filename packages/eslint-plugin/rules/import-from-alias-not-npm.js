@@ -9,14 +9,14 @@ const { getSourceFileDetails, getImportFromNpm } = require('../utils/import-alia
  * @version 0.1.0
  * @category conventions
  */
-const rule = function(context) {
+const rule = function (context) {
   const { ownPackage } = getSourceFileDetails(context.getFilename());
   if (!ownPackage) {
     return {};
   }
 
   return {
-    ImportDeclaration: function(node) {
+    ImportDeclaration: function (node) {
       if (node.source.type !== 'Literal' || !node.source.value) {
         return;
       }
@@ -32,7 +32,7 @@ const rule = function(context) {
         `Do not use ${importString} to import from ${ownPackage} from code inside ${ownPackage}. ` +
         ` Instead, use the ${pkg} alias or a relative import`;
 
-      const fix = fixer => fixer.replaceText(node.source, `'${pkg}${importPathWithSlash}'`);
+      const fix = (fixer) => fixer.replaceText(node.source, `'${pkg}${importPathWithSlash}'`);
       context.report({ fix, node, message });
     },
   };

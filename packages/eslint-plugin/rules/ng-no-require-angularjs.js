@@ -13,9 +13,9 @@
  * @category conventions
  * @sinceAngularVersion 1.x
  */
-const rule = function(context) {
+const rule = function (context) {
   return {
-    MemberExpression: function(node) {
+    MemberExpression: function (node) {
       const { type, object = {}, property = {} } = node;
       const isAngularDotModule = type === 'MemberExpression' && object.name === 'angular' && property.name === 'module';
       if (isAngularDotModule) {
@@ -46,8 +46,8 @@ function findAngularVariable(_node, context) {
   }
 
   const programScope = context.getSourceCode().scopeManager.acquire(program);
-  const moduleScope = programScope && programScope.childScopes.find(s => s.type === 'module');
-  return moduleScope && moduleScope.variables.find(v => v.name === 'angular');
+  const moduleScope = programScope && programScope.childScopes.find((s) => s.type === 'module');
+  return moduleScope && moduleScope.variables.find((v) => v.name === 'angular');
 }
 
 function findAngularImportStatement(_node) {
@@ -56,7 +56,7 @@ function findAngularImportStatement(_node) {
     program = program.parent;
   }
 
-  return program.body.find(node => {
+  return program.body.find((node) => {
     return (
       node.type === 'ImportDeclaration' &&
       node.source &&
@@ -76,7 +76,7 @@ import { module } from 'angular';
 module('module', ['dep']);
  */
 function getFixForAngularModule(angularDotModuleNode, importStatement) {
-  return function(fixer) {
+  return function (fixer) {
     return [
       fixer.replaceText(angularDotModuleNode, 'module'),
       fixer.replaceText(importStatement, `import { module } from 'angular'`),

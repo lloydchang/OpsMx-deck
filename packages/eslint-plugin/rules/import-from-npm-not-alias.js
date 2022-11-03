@@ -10,7 +10,7 @@ const { getAliasImport, getSourceFileDetails, getAllSpinnakerPackages } = requir
  * @version 0.1.0
  * @category conventions
  */
-const rule = function(context) {
+const rule = function (context) {
   const sourceFile = context.getFilename();
   const { modulesPath, ownPackage } = getSourceFileDetails(sourceFile);
   if (!ownPackage) {
@@ -19,7 +19,7 @@ const rule = function(context) {
   const allSpinnakerPackages = getAllSpinnakerPackages(modulesPath);
 
   return {
-    ImportDeclaration: function(node) {
+    ImportDeclaration: function (node) {
       if (node.source.type !== 'Literal' || !node.source.value) {
         return;
       }
@@ -35,7 +35,7 @@ const rule = function(context) {
         `Do not use an alias to import from ${pkg} from code inside ${ownPackage}.` +
         ` Instead, use the npm package @spinnaker/${pkg}`;
 
-      const fix = fixer => fixer.replaceText(node.source, `'@spinnaker/${pkg}'`);
+      const fix = (fixer) => fixer.replaceText(node.source, `'@spinnaker/${pkg}'`);
       context.report({ fix, node, message });
     },
   };
