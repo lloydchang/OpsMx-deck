@@ -37,7 +37,7 @@ export class ExecutionService {
     '$$hashKey',
   ];
 
-  constructor(private $q: IQService, private $state: StateService, private $timeout: ITimeoutService) {}
+  constructor(private $q: IQService, private $state: StateService, private $timeout: ITimeoutService) { }
 
   public getRunningExecutions(applicationName: string): PromiseLike<IExecution[]> {
     return this.getFilteredExecutions(applicationName, this.activeStatuses, this.runningLimit, null, true);
@@ -54,9 +54,9 @@ export class ExecutionService {
     const call = pipelineConfigIds
       ? REST('/executions').query({ limit, pipelineConfigIds, statuses }).get()
       : REST('/applications')
-          .path(applicationName, 'pipelines')
-          .query({ limit, statuses: statusString, pipelineConfigIds, expand })
-          .get();
+        .path(applicationName, 'pipelines')
+        .query({ limit, statuses: statusString, pipelineConfigIds, expand })
+        .get();
 
     return call.then((data: IExecution[]) => {
       if (data) {
@@ -229,9 +229,11 @@ export class ExecutionService {
     trigger: any,
   ): PromiseLike<IRetryablePromise<void>> {
     const { executionService } = ReactInjector;
-    return PipelineConfigService.triggerPipeline(app.name, pipeline, trigger).then((triggerResult) =>
-      executionService.waitUntilTriggeredPipelineAppears(app, triggerResult),
-    );
+    return PipelineConfigService.triggerPipeline(app.name, pipeline, trigger)
+      .then((triggerResult) => executionService.waitUntilTriggeredPipelineAppears(app, triggerResult))
+      .catch((exception) => {
+        throw exception && exception.data ? exception.data.message : null;
+      });
   }
 
   public waitUntilTriggeredPipelineAppears(
@@ -271,7 +273,7 @@ export class ExecutionService {
       .put()
       .then(() => this.waitUntilPipelineIsCancelled(application, executionId))
       .catch((exception) => {
-        throw exception && exception.data ? exception.message : null;
+        throw exception && exception.data ? exception.data.message : null;
       });
   }
 
@@ -282,7 +284,7 @@ export class ExecutionService {
       .then(() => this.waitUntilExecutionMatches(executionId, (execution) => execution.status === 'PAUSED'))
       .then(() => application.executions.refresh())
       .catch((exception) => {
-        throw exception && exception.data ? exception.message : null;
+        throw exception && exception.data ? exception.data.message : null;
       });
   }
 
@@ -293,7 +295,7 @@ export class ExecutionService {
       .then(() => this.waitUntilExecutionMatches(executionId, (execution) => execution.status === 'RUNNING'))
       .then(() => application.executions.refresh())
       .catch((exception) => {
-        throw exception && exception.data ? exception.message : null;
+        throw exception && exception.data ? exception.data.message : null;
       });
   }
 
@@ -304,7 +306,7 @@ export class ExecutionService {
       .then(() => this.waitUntilPipelineIsDeleted(application, executionId))
       .then(() => application.executions.refresh())
       .catch((exception) => {
-        throw exception && exception.data ? exception.message : null;
+        throw exception && exception.data ? exception.data.message : null;
       });
     return promiseLike;
   }
