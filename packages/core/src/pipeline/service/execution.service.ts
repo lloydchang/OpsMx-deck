@@ -40,7 +40,7 @@ export class ExecutionService {
     '$$hashKey',
   ];
 
-  constructor(private $q: IQService, private $state: StateService, private $timeout: ITimeoutService) { }
+  constructor(private $q: IQService, private $state: StateService, private $timeout: ITimeoutService) {}
 
   public getRunningExecutions(applicationName: string): PromiseLike<IExecution[]> {
     return this.getFilteredExecutions(applicationName, this.activeStatuses, this.runningLimit, null, true);
@@ -57,9 +57,9 @@ export class ExecutionService {
     const call = pipelineConfigIds
       ? REST('/executions').query({ limit, pipelineConfigIds, statuses }).get()
       : REST('/applications')
-        .path(applicationName, 'pipelines')
-        .query({ limit, statuses: statusString, pipelineConfigIds, expand })
-        .get();
+          .path(applicationName, 'pipelines')
+          .query({ limit, statuses: statusString, pipelineConfigIds, expand })
+          .get();
 
     return call.then((data: IExecution[]) => {
       if (data) {
