@@ -27,7 +27,7 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
     const hasStrategyConfigs = get(application, 'strategyConfigs.data', []).length > 0;
     const header = !(hasPipelineConfigs || hasStrategyConfigs) ? (
       <li className="dropdown-header" style={{ marginTop: 0 }}>
-        None yet, click <span style={{ marginLeft: '2px' }} className="glyphicon glyphicon-plus-sign" /> Create
+        None yet, click <span style={{ marginLeft: '2px' }} className="glyphicon glyphicon-plus-sign" /> Create -- Test
       </li>
     ) : hasPipelineConfigs ? (
       <li className="dropdown-header" style={{ marginTop: 0 }}>
