@@ -17,6 +17,7 @@ describe('<ManifestDeploymentOptions />', () => {
       config: defaultTrafficManagementConfig,
       onConfigChange: onConfigChangeSpy,
       selectedAccount: null,
+      isDeploymentKind: null,
     };
     wrapper = shallow(<ManifestDeploymentOptions {...props} />);
   });
@@ -48,6 +49,42 @@ describe('<ManifestDeploymentOptions />', () => {
       props.config.options.strategy = 'redblack';
       wrapper = shallow(<ManifestDeploymentOptions {...props} />);
       expect(wrapper.find('input[type="checkbox"]').at(1).props().disabled).toEqual(true);
+    });
+    it('disables the traffic checkbox when blue/green rollout strategy is selected', () => {
+      props.config.options.strategy = 'bluegreen';
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('input[type="checkbox"]').at(1).props().disabled).toEqual(true);
+    });
+
+    it('strategy bluegreen should not display warning label', () => {
+      props.config.options.strategy = 'bluegreen';
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('p[id="redBlackWarning"]').exists()).toEqual(false);
+    });
+    it('strategy highlander should not display warning label', () => {
+      props.config.options.strategy = 'highlander';
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('p[id="redBlackWarning"]').exists()).toEqual(false);
+    });
+
+    it('strategy redblack should display warning label', () => {
+      props.config.options.strategy = 'redblack';
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('p[id="redBlackWarning"]').exists()).toEqual(true);
+    });
+
+    it('strategy bluegreen with deployment kind should display warning label', () => {
+      props.config.options.strategy = 'bluegreen';
+      props.isDeploymentKind = true;
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('p[id="blueGreenWarning"]').exists()).toEqual(true);
+    });
+
+    it('strategy bluegreen with replicaSet kind should not display warning label', () => {
+      props.config.options.strategy = 'bluegreen';
+      props.isDeploymentKind = false;
+      wrapper = shallow(<ManifestDeploymentOptions {...props} />);
+      expect(wrapper.find('p[id="blueGreenWarning"]').exists()).toEqual(false);
     });
   });
 });

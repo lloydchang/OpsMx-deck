@@ -37,23 +37,42 @@ export interface IManifestDeploymentOptionsProps {
   config: ITrafficManagementConfig;
   onConfigChange: (config: ITrafficManagementConfig) => void;
   selectedAccount: string;
+  isDeploymentKind: boolean;
 }
 
 export interface IManifestDeploymentOptionsState {
   services: string[];
+  showRedBlackWarningMessage: boolean;
+  showBlueGreenDeploymentWarningMessage: boolean;
 }
 
 export class ManifestDeploymentOptions extends React.Component<
   IManifestDeploymentOptionsProps,
   IManifestDeploymentOptionsState
 > {
-  public state: IManifestDeploymentOptionsState = { services: [] };
+  public state: IManifestDeploymentOptionsState = {
+    services: [],
+    showRedBlackWarningMessage: false,
+    showBlueGreenDeploymentWarningMessage: false,
+  };
 
   private onConfigChange = (key: string, value: any): void => {
+    this.setState({ showRedBlackWarningMessage: false });
+    if (value === 'redblack') {
+      value = 'bluegreen';
+      this.setState({ showRedBlackWarningMessage: true });
+    }
+    if (value === 'bluegreen' && this.props.isDeploymentKind) {
+      this.setState({ showBlueGreenDeploymentWarningMessage: true });
+    }
+    this.updateProps(key, value);
+  };
+
+  private updateProps(key: string, value: any) {
     const updatedConfig = cloneDeep(this.props.config);
     set(updatedConfig, key, value);
     this.props.onConfigChange(updatedConfig);
-  };
+  }
 
   private fetchServices = (): void => {
     const namespace = this.props.config.options.namespace;
@@ -93,25 +112,36 @@ export class ManifestDeploymentOptions extends React.Component<
 
   public componentDidMount() {
     this.fetchServices();
+    this.setState({ showRedBlackWarningMessage: false });
+    this.setState({ showBlueGreenDeploymentWarningMessage: false });
+    if (this.props.config.options.strategy === 'redblack') {
+      this.setState({ showRedBlackWarningMessage: true });
+      this.updateProps('options.strategy', 'bluegreen');
+    }
+    if (this.props.config.options.strategy === 'bluegreen' && this.props.isDeploymentKind) {
+      this.setState({ showBlueGreenDeploymentWarningMessage: true });
+    }
   }
 
   public componentDidUpdate(prevProps: IManifestDeploymentOptionsProps) {
     if (prevProps.selectedAccount !== this.props.selectedAccount) {
-      this.onConfigChange('options.namespace', null);
+      this.updateProps('options.namespace', null);
     }
 
     if (prevProps.config.options.namespace !== this.props.config.options.namespace) {
-      this.onConfigChange('options.services', null);
+      this.updateProps('options.services', null);
       this.fetchServices();
     }
 
     if (!this.props.config.options.enableTraffic && !!this.props.config.options.strategy) {
-      this.onConfigChange('options.enableTraffic', true);
+      this.updateProps('options.enableTraffic', true);
     }
   }
 
   public render() {
     const { config } = this.props;
+    const { showRedBlackWarningMessage } = this.state;
+    const { showBlueGreenDeploymentWarningMessage } = this.state;
     return (
       <>
         <h4>Rollout Strategy Options</h4>
@@ -162,6 +192,7 @@ export class ManifestDeploymentOptions extends React.Component<
             </StageConfigField>
             <StageConfigField fieldColumns={8} helpKey="kubernetes.manifest.rolloutStrategy" label="Strategy">
               <Select
+                id={'strategyDropdown'}
                 clearable={false}
                 onChange={(option: Option<IDeploymentStrategy>) => this.onConfigChange('options.strategy', option.key)}
                 options={rolloutStrategies}
@@ -171,6 +202,17 @@ export class ManifestDeploymentOptions extends React.Component<
                 valueKey="key"
                 valueRenderer={(o) => <>{o.label}</>}
               />
+              {showRedBlackWarningMessage && (
+                <p id={'redBlackWarning'} style={{ color: 'orange' }}>
+                  Warning: Red/black strategy is deprecated and will be removed soon. We automatically selected
+                  blue/green instead!
+                </p>
+              )}
+              {showBlueGreenDeploymentWarningMessage && (
+                <p id={'blueGreenWarning'} style={{ color: 'orange' }}>
+                  Warning: Blue/Green strategy may cause downtime for Deployment kind!
+                </p>
+              )}
             </StageConfigField>
           </>
         )}
