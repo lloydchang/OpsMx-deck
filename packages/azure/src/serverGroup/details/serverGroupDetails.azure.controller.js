@@ -250,10 +250,6 @@ angular
         });
       };
 
-      this.forceRestartServerGroup=(serverGroup)=>{
-        console.log("Restart server group",serverGroup);
-      }
-
       this.truncateCommitHash = function () {
         if ($scope.serverGroup && $scope.serverGroup.buildInfo && $scope.serverGroup.buildInfo.commit) {
           return $scope.serverGroup.buildInfo.commit.substring(0, 8);
