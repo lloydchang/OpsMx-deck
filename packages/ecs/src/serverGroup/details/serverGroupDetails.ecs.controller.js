@@ -325,6 +325,10 @@ angular
         });
       };
 
+      this.forceRestartServerGroup=(serverGroup)=>{
+        console.log("Restart server group",serverGroup);
+      }
+
       this.cloneServerGroup = (serverGroup) => {
         $uibModal.open({
           templateUrl: require('../configure/wizard/serverGroupWizard.html'),
