@@ -22,9 +22,9 @@ import {
 import { CopyFromTemplateButton } from './CopyFromTemplateButton';
 import type { IManifestBindArtifact } from './ManifestBindArtifactsSelector';
 import { ManifestBindArtifactsSelector } from './ManifestBindArtifactsSelector';
-import { ServerGroupNamePreview } from './ServerGroupNamePreview';
 import { ManifestSource } from '../../../manifest/ManifestSource';
 import { ManifestBasicSettings } from '../../../manifest/wizard/BasicSettings';
+import { ServerGroupNamePreview } from './serverGroupNamePreview';
 
 interface IDeployManifestStageConfigFormProps {
   accounts: IAccountDetails[];
