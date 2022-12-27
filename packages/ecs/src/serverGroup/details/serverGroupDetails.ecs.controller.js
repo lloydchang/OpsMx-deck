@@ -325,8 +325,37 @@ angular
         });
       };
 
-      this.forceRestartServerGroup=(serverGroup)=>{
-        console.log("Restart server group",serverGroup);
+      this.forceRestartServerGroup = () => {
+        const serverGroup = this.serverGroup;
+
+        const taskMonitor = {
+          application: app,
+          title: 'Force restart ' + serverGroup.name,
+        };
+
+        const submitMethod = (params) => {
+          console.log("submit method params",params)
+          return serverGroupWriter.forceRestartServerGroup(serverGroup, app, params);
+        };
+
+        const confirmationModalParams = {
+          header: 'Really Force restart ' + serverGroup.name + '?',
+          buttonText: 'Force restart ' + serverGroup.name,
+          account: serverGroup.account,
+          taskMonitorConfig: taskMonitor,
+          platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
+          platformHealthType: 'Ecs',
+          submitMethod: submitMethod,
+          askForReason: true,
+        };
+
+        ServerGroupWarningMessageService.addDisableWarningMessage(app, serverGroup, confirmationModalParams);
+
+        if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
+          confirmationModalParams.interestingHealthProviderNames = ['Ecs'];
+        }
+
+        ConfirmationModalService.confirm(confirmationModalParams);
       }
 
       this.cloneServerGroup = (serverGroup) => {
