@@ -61,7 +61,7 @@ module(CLOUDRUN_EDIT_LOAD_BALANCER_STAGE, [CLOUDRUN_LOAD_BALANCER_CHOICE_MODAL_C
     Registry.pipeline.registerStage({
       label: 'Edit Load Balancer',
       description: 'Edits a load balancer',
-      key: 'upsertAppEngineLoadBalancers',
+      key: 'upsertCloudrunLoadBalancers',
       cloudProvider: 'cloudrun',
       templateUrl: require('./editLoadBalancerStage.html'),
       executionDetailsUrl: require('./editLoadBalancerExecutionDetails.html'),

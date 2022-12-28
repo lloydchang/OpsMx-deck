@@ -10,9 +10,9 @@
     <div class="alert alert-warning" ng-if="ctrl.loadBalancers.length === 0">
       <p>
         Spinnaker cannot create a load balancer for Cloudrun. A Spinnaker load balancer maps to a Cloudrun service which
-        along with a Revision are created from Create Server Group page using a
+        along with a Revision are created from Create Server Group page using a <code>yaml file</code>
+        <help-field key="cloudrun.serverGroup.file"></help-field>
       </p>
-      <p><code>yaml file</code> <help-field key="cloudrun.serverGroup.file"></help-field></p>
       <p>
         If a service does not exist when a Revision is deployed, it will be created. It will then be editable as a load
         balancer within Spinnaker.
