@@ -2,13 +2,7 @@ import { capitalize, get, isEmpty, map } from 'lodash';
 import React from 'react';
 import type { Option } from 'react-select';
 
-import type {
-  IAccountDetails,
-  IArtifact,
-  IExpectedArtifact,
-  IFormikStageConfigInjectedProps,
-  IManifest,
-} from '@spinnaker/core';
+import type { IAccountDetails, IArtifact, IExpectedArtifact, IFormikStageConfigInjectedProps } from '@spinnaker/core';
 import {
   ArtifactTypePatterns,
   CheckboxInput,
@@ -19,7 +13,6 @@ import {
   YamlEditor,
 } from '@spinnaker/core';
 
-import { CopyFromTemplateButton } from './CopyFromTemplateButton';
 import type { IManifestBindArtifact } from './ManifestBindArtifactsSelector';
 import { ManifestBindArtifactsSelector } from './ManifestBindArtifactsSelector';
 import { ManifestSource } from '../../../manifest/ManifestSource';
@@ -66,13 +59,6 @@ export class DeployStageForm extends React.Component<
       label: capitalize(option),
       value: option,
     }));
-  };
-
-  private handleCopy = (manifest: IManifest): void => {
-    this.props.formik.setFieldValue('manifests', [manifest]);
-    this.setState({
-      rawManifest: yamlDocumentsToString([manifest]),
-    });
   };
 
   private handleRawManifestChange = (rawManifest: string, manifests: any): void => {
@@ -162,7 +148,6 @@ export class DeployStageForm extends React.Component<
         </StageConfigField>
         {stage.source === ManifestSource.TEXT && (
           <StageConfigField label="Manifest">
-            <CopyFromTemplateButton application={this.props.application} handleCopy={this.handleCopy} />
             <YamlEditor onChange={this.handleRawManifestChange} value={this.state.rawManifest} />
           </StageConfigField>
         )}
