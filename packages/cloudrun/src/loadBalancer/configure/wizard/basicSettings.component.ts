@@ -17,14 +17,14 @@ class CloudrunLoadBalancerSettingsController implements IController {
     const remainingServerGroups = this.serverGroupsWithoutAllocation();
     if (remainingServerGroups.length) {
       this.loadBalancer.splitDescription.allocationDescriptions.push({
-        revisionName: remainingServerGroups[0],
-        percent: 0,
+        serverGroupName: remainingServerGroups[0],
+        allocation: 0,
       });
       this.updateServerGroupOptions();
     } else if (this.forPipelineConfig) {
       this.loadBalancer.splitDescription.allocationDescriptions.push({
-        percent: 0,
-        revisionName: '',
+        allocation: 0,
+        serverGroupName: '',
       });
     }
   }
@@ -37,7 +37,7 @@ class CloudrunLoadBalancerSettingsController implements IController {
   public allocationIsInvalid(): boolean {
     return (
       this.loadBalancer.splitDescription.allocationDescriptions.reduce(
-        (sum, allocationDescription) => sum + allocationDescription.percent,
+        (sum, allocationDescription) => sum + allocationDescription.allocation,
         0,
       ) !== 100
     );
@@ -65,7 +65,7 @@ class CloudrunLoadBalancerSettingsController implements IController {
 
   private serverGroupsWithoutAllocation(): string[] {
     const serverGroupsWithAllocation = this.loadBalancer.splitDescription.allocationDescriptions.map(
-      (description) => description.revisionName,
+      (description) => description.serverGroupName,
     );
     const allServerGroups = this.loadBalancer.serverGroups.map((serverGroup) => serverGroup.name);
     return difference(allServerGroups, serverGroupsWithAllocation);

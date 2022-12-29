@@ -68,11 +68,14 @@
         </dd>
       </dl>
     </collapsible-section>
+    <collapsible-section heading="Status" expanded="true">
+      <health-counts class="pull-left" container="ctrl.loadBalancer.instanceCounts"></health-counts>
+    </collapsible-section>
     <collapsible-section heading="Traffic Split" expanded="true">
       <dl class="dl-horizontal dl-narrow">
         <ul>
-          <li ng-repeat="trafficTarget in ctrl.loadBalancer.split.trafficTargets">
-            {{trafficTarget.revisionName}}:<span class="pull-right">{{trafficTarget.percent}}</span>
+          <li ng-repeat="(serverGroup, percent) in ctrl.loadBalancer.split.allocations">
+            {{serverGroup}}:<span class="pull-right">{{percent | decimalToPercent}}</span>
           </li>
         </ul>
       </dl>

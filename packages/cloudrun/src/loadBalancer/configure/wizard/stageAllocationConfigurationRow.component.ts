@@ -11,12 +11,28 @@ class CloudrunStageAllocationLabelCtrl implements IController {
   public inputViewValue: string;
   private allocationDescription: ICloudrunAllocationDescription;
 
+  private static mapTargetCoordinateToLabel(targetCoordinate: string): string {
+    const target = StageConstants.TARGET_LIST.find((t) => t.val === targetCoordinate);
+    if (target) {
+      return target.label;
+    } else {
+      return null;
+    }
+  }
+
   public $doCheck(): void {
     this.setInputViewValue();
   }
 
   private setInputViewValue(): void {
-    this.inputViewValue = this.allocationDescription.revisionName;
+    if (this.allocationDescription.cluster && this.allocationDescription.target) {
+      const targetLabel = CloudrunStageAllocationLabelCtrl.mapTargetCoordinateToLabel(
+        this.allocationDescription.target,
+      );
+      this.inputViewValue = `${targetLabel} (${this.allocationDescription.cluster})`;
+    } else {
+      this.inputViewValue = null;
+    }
   }
 }
 
@@ -42,19 +58,11 @@ class CloudrunStageAllocationConfigurationRowCtrl implements IController {
   }
 
   public getServerGroupOptions(): string[] {
-    if (this.allocationDescription.revisionName) {
-      return uniq(this.serverGroupOptions.concat(this.allocationDescription.revisionName));
+    if (this.allocationDescription.serverGroupName) {
+      return uniq(this.serverGroupOptions.concat(this.allocationDescription.serverGroupName));
     } else {
       return this.serverGroupOptions;
     }
-  }
-
-  public onLocatorTypeChange(): void {
-    // Prevents pipeline expressions (or non-existent server groups) from entering the dropdown.
-    if (!this.serverGroupOptions.includes(this.allocationDescription.revisionName)) {
-      delete this.allocationDescription.revisionName;
-    }
-    this.onAllocationChange();
   }
 }
 

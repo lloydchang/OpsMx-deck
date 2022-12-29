@@ -9,8 +9,8 @@ class CloudrunAllocationConfigurationRowCtrl implements IController {
   public serverGroupOptions: string[];
 
   public getServerGroupOptions(): string[] {
-    if (this.allocationDescription.revisionName) {
-      return uniq(this.serverGroupOptions.concat(this.allocationDescription.revisionName));
+    if (this.allocationDescription.serverGroupName) {
+      return uniq(this.serverGroupOptions.concat(this.allocationDescription.serverGroupName));
     } else {
       return this.serverGroupOptions;
     }
@@ -28,7 +28,7 @@ const cloudrunAllocationConfigurationRowComponent: IComponentOptions = {
     <div class="form-group">
       <div class="row">
         <div class="col-md-7">
-          <ui-select ng-model="$ctrl.allocationDescription.revisionName"
+          <ui-select ng-model="$ctrl.allocationDescription.serverGroupName"
                      on-select="$ctrl.onAllocationChange()"
                      class="form-control input-sm">
             <ui-select-match placeholder="Select...">
@@ -42,7 +42,7 @@ const cloudrunAllocationConfigurationRowComponent: IComponentOptions = {
         <div class="col-md-3">
           <div class="input-group input-group-sm">
             <input type="number"
-                   ng-model="$ctrl.allocationDescription.percent"
+                   ng-model="$ctrl.allocationDescription.allocation"
                    required
                    class="form-control input-sm"
                    min="0"

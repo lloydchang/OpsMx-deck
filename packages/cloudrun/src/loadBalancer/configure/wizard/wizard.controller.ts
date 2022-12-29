@@ -74,7 +74,7 @@ class CloudrunLoadBalancerWizardController implements IController {
 
   public submit(): any {
     const description = cloneDeep(this.loadBalancer);
-    description.mapAllocationsToPercentages();
+    description.mapAllocationsToDecimals();
     delete description.serverGroups;
 
     if (this.forPipelineConfig) {
@@ -112,7 +112,8 @@ class CloudrunLoadBalancerWizardController implements IController {
           watchString: 'ctrl.loadBalancer.splitDescription',
           validator: (splitDescription: ICloudrunTrafficSplitDescription): boolean => {
             return (
-              splitDescription.allocationDescriptions.reduce((sum, description) => sum + description.percent, 0) === 100
+              splitDescription.allocationDescriptions.reduce((sum, description) => sum + description.allocation, 0) ===
+              100
             );
           },
           watchDeep: true,
