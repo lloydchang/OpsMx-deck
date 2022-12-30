@@ -18,10 +18,10 @@ export interface IManifestParams {
 
 export type IManifestCallback = (manifest: IManifest) => void;
 
-export class KubernetesManifestService {
+export class CloudrunManifestService {
   public static subscribe(app: Application, params: IManifestParams, fn: IManifestCallback): () => void {
-    KubernetesManifestService.updateManifest(params, fn);
-    return app.onRefresh(null, () => KubernetesManifestService.updateManifest(params, fn));
+    CloudrunManifestService.updateManifest(params, fn);
+    return app.onRefresh(null, () => CloudrunManifestService.updateManifest(params, fn));
   }
 
   private static updateManifest(params: IManifestParams, fn: IManifestCallback) {
@@ -43,7 +43,7 @@ export class KubernetesManifestService {
   public static stageManifestToManifestParams(manifest: IStageManifest, account: string): IManifestParams {
     return {
       account,
-      name: KubernetesManifestService.scopedKind(manifest) + ' ' + manifest.metadata.name,
+      name: CloudrunManifestService.scopedKind(manifest) + ' ' + manifest.metadata.name,
       location: manifest.metadata.namespace == null ? '_' : manifest.metadata.namespace,
     };
   }
@@ -57,18 +57,17 @@ export class KubernetesManifestService {
   }
 
   private static isCRDGroup(manifest: IStageManifest): boolean {
-    return !KubernetesManifestService.BUILT_IN_GROUPS.includes(KubernetesManifestService.apiGroup(manifest));
+    return !CloudrunManifestService.BUILT_IN_GROUPS.includes(CloudrunManifestService.apiGroup(manifest));
   }
 
   private static scopedKind(manifest: IStageManifest): string {
-    if (KubernetesManifestService.isCRDGroup(manifest)) {
-      return manifest.kind + '.' + KubernetesManifestService.apiGroup(manifest);
+    if (CloudrunManifestService.isCRDGroup(manifest)) {
+      return manifest.kind + '.' + CloudrunManifestService.apiGroup(manifest);
     }
 
     return manifest.kind;
   }
 
-  // from https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.12/
   private static readonly BUILT_IN_GROUPS = [
     '',
     'core',

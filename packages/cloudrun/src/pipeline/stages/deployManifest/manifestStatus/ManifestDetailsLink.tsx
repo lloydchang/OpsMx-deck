@@ -4,7 +4,7 @@ import React from 'react';
 import type { IManifest } from '@spinnaker/core';
 import { AccountService, ReactInjector } from '@spinnaker/core';
 
-const UNMAPPED_K8S_RESOURCE_STATE_KEY = 'kubernetesResource';
+const UNMAPPED_K8S_RESOURCE_STATE_KEY = 'cloudrunResource';
 
 export interface IManifestDetailsProps {
   manifest: IManifest;
@@ -18,7 +18,7 @@ export interface IManifestDetailsState {
 
 export class ManifestDetailsLink extends React.Component<IManifestDetailsProps, IManifestDetailsState> {
   private spinnakerKindStateMap: { [k: string]: string } = {
-    // keys from clouddriver's KubernetesSpinnakerKindMap
+    // keys from clouddriver's CloudrunSpinnakerKindMap
     serverGroupManagers: 'serverGroupManager',
     serverGroups: 'serverGroup',
   };
@@ -35,7 +35,7 @@ export class ManifestDetailsLink extends React.Component<IManifestDetailsProps, 
     return !!this.props.manifest.manifest && !!this.state.url;
   }
 
-  private spinnakerKindFromKubernetesKind(kind: string, kindMap: { [k: string]: string }) {
+  private spinnakerKindFromCloudrunKind(kind: string, kindMap: { [k: string]: string }) {
     const foundKind = Object.keys(kindMap).find((k) => k.toLowerCase() === kind.toLowerCase());
     return kindMap[foundKind];
   }
@@ -70,7 +70,7 @@ export class ManifestDetailsLink extends React.Component<IManifestDetailsProps, 
     const kind: string = get(this.props, ['manifest', 'manifest', 'kind'], '');
     const { accountId } = this.props;
     AccountService.getAccountDetails(accountId).then((account) => {
-      const spinnakerKind = this.spinnakerKindFromKubernetesKind(kind, account.spinnakerKindMap);
+      const spinnakerKind = this.spinnakerKindFromCloudrunKind(kind, account.spinnakerKindMap);
       const stateKey = this.spinnakerKindStateMap[spinnakerKind] || UNMAPPED_K8S_RESOURCE_STATE_KEY;
       const params = this.getStateParams(stateKey);
       const url = ReactInjector.$state.href(`home.applications.application.insight.clusters.${stateKey}`, params);

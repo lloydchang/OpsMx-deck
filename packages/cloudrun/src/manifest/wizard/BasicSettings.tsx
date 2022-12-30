@@ -4,7 +4,7 @@ import React from 'react';
 import type { IAccount } from '@spinnaker/core';
 import { AccountSelectInput, HelpField } from '@spinnaker/core';
 
-import type { IKubernetesManifestCommandData } from '../manifestCommandBuilder.service';
+import type { ICloudrunManifestCommandData } from '../manifestCommandBuilder.service';
 
 export interface IManifestBasicSettingsProps {
   accounts: IAccount[];
@@ -34,7 +34,7 @@ export function ManifestBasicSettings({ accounts, onAccountSelect, selectedAccou
 }
 
 export interface IWizardManifestBasicSettingsProps {
-  formik: FormikProps<IKubernetesManifestCommandData>;
+  formik: FormikProps<ICloudrunManifestCommandData>;
 }
 
 export class WizardManifestBasicSettings extends React.Component<IWizardManifestBasicSettingsProps> {

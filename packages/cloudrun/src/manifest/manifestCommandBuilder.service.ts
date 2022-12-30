@@ -9,17 +9,17 @@ import { ManifestSource } from './ManifestSource';
 
 const LAST_APPLIED_CONFIGURATION = 'kubectl.kubernetes.io/last-applied-configuration';
 
-export interface IKubernetesManifestCommandData {
-  command: IKubernetesManifestCommand;
-  metadata: IKubernetesManifestCommandMetadata;
+export interface ICloudrunManifestCommandData {
+  command: ICloudrunManifestCommand;
+  metadata: ICloudrunManifestCommandMetadata;
 }
 
-export interface IKubernetesManifestCommand {
+export interface ICloudrunManifestCommand {
   account: string;
   cloudProvider: string;
   manifest: any; // deprecated
   manifests: any[];
-  relationships: IKubernetesManifestSpinnakerRelationships;
+  relationships: ICloudrunManifestSpinnakerRelationships;
   moniker: IMoniker;
   manifestArtifactId?: string;
   manifestArtifactAccount?: string;
@@ -27,18 +27,18 @@ export interface IKubernetesManifestCommand {
   versioned?: boolean;
 }
 
-export interface IKubernetesManifestCommandMetadata {
+export interface ICloudrunManifestCommandMetadata {
   backingData: any;
 }
 
-export interface IKubernetesManifestSpinnakerRelationships {
+export interface ICloudrunManifestSpinnakerRelationships {
   loadBalancers?: string[];
   securityGroups?: string[];
 }
 
-export class KubernetesManifestCommandBuilder {
+export class CloudrunManifestCommandBuilder {
   // TODO(lwander) add explanatory error messages
-  public static manifestCommandIsValid(command: IKubernetesManifestCommand): boolean {
+  public static manifestCommandIsValid(command: ICloudrunManifestCommand): boolean {
     if (!command.moniker) {
       return false;
     }
@@ -50,7 +50,7 @@ export class KubernetesManifestCommandBuilder {
     return true;
   }
 
-  public static copyAndCleanCommand(input: IKubernetesManifestCommand): IKubernetesManifestCommand {
+  public static copyAndCleanCommand(input: ICloudrunManifestCommand): ICloudrunManifestCommand {
     const command = cloneDeep(input);
     return command;
   }
@@ -60,13 +60,13 @@ export class KubernetesManifestCommandBuilder {
     sourceManifest?: any,
     sourceMoniker?: IMoniker,
     sourceAccount?: string,
-  ): PromiseLike<IKubernetesManifestCommandData> {
+  ): PromiseLike<ICloudrunManifestCommandData> {
     if (sourceManifest != null && has(sourceManifest, ['metadata', 'annotations', LAST_APPLIED_CONFIGURATION])) {
       sourceManifest = load(sourceManifest.metadata.annotations[LAST_APPLIED_CONFIGURATION]);
     }
 
     const dataToFetch = {
-      accounts: AccountService.getAllAccountDetailsForProvider('kubernetes'),
+      accounts: AccountService.getAllAccountDetailsForProvider('cloudrun'),
       artifactAccounts: AccountService.getArtifactAccounts(),
     };
 
@@ -89,7 +89,7 @@ export class KubernetesManifestCommandBuilder {
           manifestArtifactAccount = artifactAccountData.name;
         }
 
-        const cloudProvider = 'kubernetes';
+        const cloudProvider = 'cloudrun';
         const moniker = sourceMoniker || {
           app: app.name,
         };
@@ -120,7 +120,7 @@ export class KubernetesManifestCommandBuilder {
           metadata: {
             backingData,
           },
-        } as IKubernetesManifestCommandData;
+        } as ICloudrunManifestCommandData;
       });
   }
 }

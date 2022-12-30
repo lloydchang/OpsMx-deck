@@ -25,7 +25,7 @@ export class ManifestEvents extends React.Component<IManifestEventsProps> {
       return null;
     }
     if (this.props.manifest && (!this.props.manifest.events || this.props.manifest.events.length === 0)) {
-      return <div>No recent events found - Kubernetes does not store events for long.</div>;
+      return <div>No recent events found - Cloudrun does not store events for long.</div>;
     }
     const { events } = this.props.manifest;
     const namespace = trim(
