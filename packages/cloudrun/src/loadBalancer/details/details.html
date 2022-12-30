@@ -74,8 +74,8 @@
     <collapsible-section heading="Traffic Split" expanded="true">
       <dl class="dl-horizontal dl-narrow">
         <ul>
-          <li ng-repeat="(serverGroup, percent) in ctrl.loadBalancer.split.allocations">
-            {{serverGroup}}:<span class="pull-right">{{percent | decimalToPercent}}</span>
+          <li ng-repeat="trafficTarget in ctrl.loadBalancer.split.trafficTargets">
+            {{trafficTarget.revisionName}}:<span class="pull-right">{{trafficTarget.percent}}</span>
           </li>
         </ul>
       </dl>

@@ -8,7 +8,7 @@ export interface ICloudrunLoadBalancer extends ILoadBalancer {
 }
 
 export interface ICloudrunTrafficSplit {
-  allocations: { [serverGroupName: string]: number };
+  trafficTargets: [{ revisionName: string; percent: number }];
 }
 
 export interface ICloudrunDispatchRule {

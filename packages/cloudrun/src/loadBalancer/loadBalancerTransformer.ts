@@ -13,10 +13,10 @@ import type {
 import type { ICloudrunLoadBalancer, ICloudrunTrafficSplit } from '../common/domain/index';
 
 export interface ICloudrunAllocationDescription {
-  serverGroupName?: string;
+  revisionName?: string;
   target?: string;
   cluster?: string;
-  allocation: number;
+  percent: number;
 }
 
 export interface ICloudrunTrafficSplitDescription {
@@ -39,9 +39,10 @@ export class CloudrunLoadBalancerUpsertDescription implements ILoadBalancerUpser
     split: ICloudrunTrafficSplit,
   ): ICloudrunTrafficSplitDescription {
     const allocationDescriptions = reduce(
-      split.allocations,
-      (acc: ICloudrunAllocationDescription[], allocation: number, serverGroupName: string) => {
-        return acc.concat({ serverGroupName, allocation });
+      split.trafficTargets,
+      (acc: any, trafficTarget: any) => {
+        const { revisionName, percent } = trafficTarget;
+        return acc.concat({ percent, revisionName });
       },
       [],
     );
@@ -61,14 +62,14 @@ export class CloudrunLoadBalancerUpsertDescription implements ILoadBalancerUpser
 
   public mapAllocationsToDecimals() {
     this.splitDescription.allocationDescriptions.forEach((description) => {
-      description.allocation = description.allocation / 100;
+      description.percent = description.percent / 100;
     });
   }
 
   public mapAllocationsToPercentages() {
     this.splitDescription.allocationDescriptions.forEach((description) => {
       // An allocation percent has at most one decimal place.
-      description.allocation = Math.round(description.allocation * 1000) / 10;
+      description.percent = Math.round(description.percent);
     });
   }
 }

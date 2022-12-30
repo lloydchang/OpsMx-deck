@@ -58,8 +58,8 @@ class CloudrunStageAllocationConfigurationRowCtrl implements IController {
   }
 
   public getServerGroupOptions(): string[] {
-    if (this.allocationDescription.serverGroupName) {
-      return uniq(this.serverGroupOptions.concat(this.allocationDescription.serverGroupName));
+    if (this.allocationDescription.revisionName) {
+      return uniq(this.serverGroupOptions.concat(this.allocationDescription.revisionName));
     } else {
       return this.serverGroupOptions;
     }
