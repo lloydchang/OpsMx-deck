@@ -101,8 +101,8 @@ export class ServerGroupWriter {
   ) {
     params.asgName = serverGroup.name;
     params.serverGroupName = serverGroup.name;
-    params.moniker = {...serverGroup.moniker, stack:"status"};
-    params.type = 'forceRestart';
+    params.moniker = serverGroup.moniker;
+    params.type = 'forceRestartServerGroup';
     params.region = serverGroup.region;
     params.credentials = serverGroup.account;
     params.cloudProvider = serverGroup.type || serverGroup.provider;
