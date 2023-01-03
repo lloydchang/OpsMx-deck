@@ -94,11 +94,7 @@ export class ServerGroupWriter {
     });
   }
 
-  public forceRestartServerGroup(
-    serverGroup: IServerGroup,
-    appName: string,
-    params: IServerGroupJob = {},
-  ) {
+  public forceRestartServerGroup(serverGroup: IServerGroup, appName: string, params: IServerGroupJob = {}) {
     params.asgName = serverGroup.name;
     params.serverGroupName = serverGroup.name;
     params.moniker = serverGroup.moniker;
