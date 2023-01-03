@@ -326,7 +326,9 @@ angular
       };
 
       this.forceRestartServerGroup = () => {
+
         const serverGroup = this.serverGroup;
+        serverGroup.moniker = {...this.serverGroup.moniker, stack:'stack'}
 
         const taskMonitor = {
           application: app,
@@ -334,7 +336,6 @@ angular
         };
 
         const submitMethod = (params) => {
-          console.log("submit method params",params)
           return serverGroupWriter.forceRestartServerGroup(serverGroup, app, params);
         };
 
@@ -349,7 +350,7 @@ angular
           askForReason: true,
         };
 
-        ServerGroupWarningMessageService.addDisableWarningMessage(app, serverGroup, confirmationModalParams);
+        // ServerGroupWarningMessageService.addDisableWarningMessage(app, serverGroup, confirmationModalParams);
 
         if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
           confirmationModalParams.interestingHealthProviderNames = ['Ecs'];
