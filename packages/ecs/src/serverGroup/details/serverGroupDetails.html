@@ -59,7 +59,9 @@
               </a>
             </li>
             <li><a href ng-click="ctrl.destroyServerGroup()">Destroy</a></li>
-            <li><a href ng-if=" !ctrl.serverGroup.isDisabled" ng-click="ctrl.forceRestartServerGroup()">Force Restart</a></li>
+            <li>
+              <a href ng-if=" !ctrl.serverGroup.isDisabled" ng-click="ctrl.forceRestartServerGroup()">Force Restart</a>
+            </li>
             <li><migrator application="ctrl.application" server-group="ctrl.serverGroup"></migrator></li>
             <render-if-feature feature="entityTags">
               <add-entity-tag-links

@@ -326,9 +326,8 @@ angular
       };
 
       this.forceRestartServerGroup = () => {
-
         const serverGroup = this.serverGroup;
-        serverGroup.moniker = {...this.serverGroup.moniker, stack:'stack'}
+        serverGroup.moniker = { ...this.serverGroup.moniker, stack: 'stack' };
 
         const taskMonitor = {
           application: app,
@@ -357,7 +356,7 @@ angular
         }
 
         ConfirmationModalService.confirm(confirmationModalParams);
-      }
+      };
 
       this.cloneServerGroup = (serverGroup) => {
         $uibModal.open({
