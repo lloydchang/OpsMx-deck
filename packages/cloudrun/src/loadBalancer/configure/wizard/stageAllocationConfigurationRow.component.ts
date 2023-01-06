@@ -2,8 +2,7 @@ import type { IComponentOptions, IController } from 'angular';
 import { module } from 'angular';
 import { uniq } from 'lodash';
 
-import type { Application } from '@spinnaker/core';
-import { AppListExtractor, StageConstants } from '@spinnaker/core';
+import { StageConstants } from '@spinnaker/core';
 
 import type { ICloudrunAllocationDescription } from '../../loadBalancerTransformer';
 
@@ -48,13 +47,10 @@ class CloudrunStageAllocationConfigurationRowCtrl implements IController {
   public targets = StageConstants.TARGET_LIST;
   public clusterList: string[];
   public onAllocationChange: Function;
-  private application: Application;
-  private region: string;
-  private account: string;
+  private name: string;
 
   public $onInit() {
-    const clusterFilter = AppListExtractor.clusterFilterForCredentialsAndRegion(this.account, this.region);
-    this.clusterList = AppListExtractor.getClusters([this.application], clusterFilter);
+    this.allocationDescription.cluster = this.name;
   }
 
   public getServerGroupOptions(): string[] {
@@ -71,6 +67,7 @@ const cloudrunStageAllocationConfigurationRow: IComponentOptions = {
     application: '<',
     region: '@',
     account: '@',
+    name: '@',
     allocationDescription: '<',
     removeAllocation: '&',
     serverGroupOptions: '<',
