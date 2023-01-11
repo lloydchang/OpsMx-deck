@@ -35,7 +35,6 @@ export class DeployStageForm extends React.Component<
   IDeployManifestStageConfigFormState
 > {
   private readonly excludedManifestArtifactTypes = [
-    ArtifactTypePatterns.DOCKER_IMAGE,
     ArtifactTypePatterns.CLOUDRUN,
     ArtifactTypePatterns.FRONT50_PIPELINE_TEMPLATE,
     ArtifactTypePatterns.MAVEN_FILE,
