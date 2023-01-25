@@ -28,9 +28,9 @@ export const SpinnakerContainer = ({ authenticating, routing }: ISpinnakerContai
               <Spinner size="medium" />
             </div>
           )}
+          <CustomBanner />
           {!queryParams['fromISD'] && (
             <div className="navbar-inverse grid-header">
-              <CustomBanner />
               <UIRouterContextComponent>
                 <SpinnakerHeader />
               </UIRouterContextComponent>
