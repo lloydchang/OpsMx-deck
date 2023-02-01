@@ -30,6 +30,7 @@ RUN chgrp -Rf root /var/lock && chmod -Rf g+w /var/lock
 RUN chgrp -Rf root /run/lock && chmod -Rf g+w /run/lock
 RUN chown -Rf apache:root /var/run/httpd && chmod -Rf 775 /var/run/httpd
 RUN chmod g+w /etc/passwd
+RUN chown www apache /opt/deck/html/settings-local.js
 
 USER apache
 
