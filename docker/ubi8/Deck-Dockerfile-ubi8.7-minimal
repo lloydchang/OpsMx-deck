@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.7
+FROM quay.io/opsmxpublic/ubi8-jre-11:v1
 MAINTAINER sig-platform@spinnaker.io
 LABEL name='deck'
 LABEL maintainer='info@opsmx.io'
