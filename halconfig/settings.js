@@ -1,6 +1,5 @@
 'use strict';
 
-var uiHost = '{%ui.baseUrl%}';
 var gateHost = '{%gate.baseUrl%}';
 var atlasWebComponentsUrl = '{%canary.atlasWebComponentsUrl%}';
 var authEnabled = '{%features.auth%}' === 'true';
