@@ -1,15 +1,21 @@
+plugins {
+  id "io.spinnaker.bintray-publish" version "$spinnakerGradleVersion"
+  id "nebula.node" version "1.3.1"
+}
+
 import java.nio.file.Paths
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import org.redline_rpm.header.Flags
 
-plugins {
-  id "io.spinnaker.artifactregistry-publish" version "$spinnakerGradleVersion"
-  id "nebula.node" version "1.3.1"
-}
 
 group = "com.netflix.spinnaker.deck"
 apply plugin: "nebula.ospackage"
+
+// BintrayPublishPlugin looks for a task named "publish" to attach its tasks to,
+// so we need to make sure one exists. Normally this would be created by the
+// publishing plugin, but we aren't applying that here.
+project.tasks.register("publish")
 
 node {
     // Pulls node and npm versions from package.json.
@@ -24,97 +30,39 @@ node {
     download = true
 }
 
-task modules(type: YarnTask) {
-  dependsOn "yarn"
-
-  yarnCommand = ["modules"]
-}
-
-task eslintPluginCompile(type: YarnTask) {
-  dependsOn "modules"
-
-  workingDir = file(Paths.get("packages", "eslint-plugin"))
-  yarnCommand = ["tsc"]
-}
-
-task eslintPluginTest(type: YarnTask) {
-  dependsOn "eslintPluginCompile"
-
-  workingDir = file(Paths.get("packages", "eslint-plugin"))
-  yarnCommand = ["test"]
-}
-
-project.tasks.register('eslintPlugin') {
-  dependsOn 'eslintPluginCompile'
-  dependsOn 'eslintPluginTest'
-}
-
-task lint(type: YarnTask) {
-  dependsOn "eslintPlugin"
-
-  yarnCommand = ["lint"]
-}
-
-task prettier(type: YarnTask) {
-  dependsOn "eslintPlugin"
-  dependsOn "lint"
-
-  yarnCommand = ["prettier:check"]
-}
-
-project.tasks.register('runLinters') {
-  dependsOn "lint"
-  dependsOn "prettier"
-}
-
-task karma(type: YarnTask) {
-  dependsOn "modules"
-
-  yarnCommand = ["test"]
-  args = ["--single-run", "--reporters", "dots"]
-
-  if (project.hasProperty('skipTests')) {
-    karma.enabled = false
-  }
-}
-
-task functionalTests(type: YarnTask) {
-  dependsOn "modules"
-  dependsOn "karma"
-
-  yarnCommand = ["functional"]
-
-  if (project.hasProperty('skipTests')) {
-    functionalTests.enabled = false
-  }
-}
-
-project.tasks.register('test') {
-  dependsOn 'karma'
-  dependsOn 'functionalTests'
-}
-
-task webpack(type: YarnTask) {
-  dependsOn "yarn"
-  dependsOn "modules"
-  dependsOn "runLinters"
-  dependsOn "test"
-
-  yarnCommand = ["build"]
+task webpack(type: NodeTask) {
+  workingDir file('.')
+  script = file('node_modules/webpack/bin/webpack.js')
+  args = ['--mode=production']
   environment = [
     "NODE_ENV": "production",
     "GATE_HOST": "spinnaker-api-prestaging.prod.netflix.net",
     "NODE_OPTIONS": "--max_old_space_size=8192",
   ]
 }
-webpack.outputs.dir file('build/webpack')
 
 task copyFavicon(type: Copy) {
-  dependsOn "webpack"
-
-  from "packages/app/icons/prod-favicon.ico"
+  from "app/prod-favicon.ico"
   into "build/webpack"
   rename "prod-favicon.ico", "favicon.ico"
+}
+
+task karma(type: NodeTask) {
+  script = file('node_modules/karma/bin/karma')
+  args = ["start", "--single-run", "--reporters", "dots"]
+  if (project.hasProperty('skipTests')) {
+    karma.enabled = false
+  }
+}
+
+task functionalTestsChrome(type: NodeTask) {
+  script = file('test/functional/run.js')
+  args = ['--replay-fixtures', '--serve-deck', '--imposter-port=8084', '--browser=chrome', '--headless']
+}
+
+task functionalTestsFirefox(type: NodeTask) {
+  script = file('test/functional/run.js')
+  args = ['--replay-fixtures', '--serve-deck', '--imposter-port=8084', '--browser=firefox', '--headless']
 }
 
 task generateVersionFile {
@@ -125,15 +73,24 @@ task generateVersionFile {
       created: new Date().getTime()
     ]
     def buildJson = JsonOutput.prettyPrint(JsonOutput.toJson(buildInfo))
-    mkdir "build/webpack"
-    file(Paths.get("build", "webpack", "version.json")).write(buildJson)
-    file("version.json").write(buildJson)
+    new File(Paths.get("build", "webpack").toString()).mkdirs()
+    new File("version.json").write(buildJson)
   }
 }
-yarn.dependsOn 'generateVersionFile'
 
-buildDeb.dependsOn 'copyFavicon'
+webpack.outputs.dir file('build/webpack')
+
+yarn.dependsOn 'generateVersionFile'
+webpack.dependsOn 'yarn'
+karma.dependsOn 'webpack'
+project.tasks.register('test') {
+  dependsOn 'karma'
+}
+copyFavicon.dependsOn 'test'
+buildDeb.dependsOn 'webpack', 'copyFavicon'
 buildRpm.dependsOn 'webpack'
+functionalTestsChrome.dependsOn 'yarn'
+functionalTestsFirefox.dependsOn 'yarn'
 build.dependsOn 'buildDeb'
 
 String toVers(String v) {
