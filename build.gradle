@@ -88,8 +88,8 @@ task generateVersionFile {
     ]
     def buildJson = JsonOutput.prettyPrint(JsonOutput.toJson(buildInfo))
     mkdir "build/webpack"
-    file(Paths.get("build", "webpack", "version.json")).write(buildJson)
-    file("version.json").write(buildJson)
+    new File(Paths.get("build", "webpack").toString()).mkdirs()
+    new File("version.json").write(buildJson)
   }
 }
 yarn.dependsOn 'generateVersionFile'
