@@ -74,7 +74,6 @@ task generateVersionFile {
     ]
     def buildJson = JsonOutput.prettyPrint(JsonOutput.toJson(buildInfo))
     new File(Paths.get("build", "webpack").toString()).mkdirs()
-    new File(Paths.get("build", "webpack", "version.json").toString()).write(buildJson)
     new File("version.json").write(buildJson)
   }
 }
