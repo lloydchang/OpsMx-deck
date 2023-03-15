@@ -7,6 +7,8 @@ import type { IScheduler } from '../scheduler/SchedulerFactory';
 import { SchedulerFactory } from '../scheduler/SchedulerFactory';
 import { timestamp } from '../utils/timeFormatters';
 import { NotifierService } from '../widgets/notifier/notifier.service';
+// @ts-ignore
+import version from 'root/version.json';
 
 export interface IDeckVersion {
   version: string;
