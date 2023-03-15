@@ -3,6 +3,111 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.22.2](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.22.1...@spinnaker/core@0.22.2) (2022-10-21)
+
+
+### Bug Fixes
+
+* **links:** update link to spinnaker release changelog ([#9897](https://github.com/spinnaker/deck/issues/9897)) ([1591513](https://github.com/spinnaker/deck/commit/159151368e99da0e990d607039268e20b8b1a8b2))
+
+
+
+
+
+## [0.22.1](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.22.0...@spinnaker/core@0.22.1) (2022-10-06)
+
+
+### Bug Fixes
+
+* **core:** Do not set static document base URL ([#9890](https://github.com/spinnaker/deck/issues/9890)) ([5ac7516](https://github.com/spinnaker/deck/commit/5ac75160cf8b6099aaea8b31874ebbbb13409b2a)), closes [#9802](https://github.com/spinnaker/deck/issues/9802) [spinnaker/spinnaker#6723](https://github.com/spinnaker/spinnaker/issues/6723)
+* **search:** Error thrown when search version 2 is enabled ([#9888](https://github.com/spinnaker/deck/issues/9888)) ([af0b585](https://github.com/spinnaker/deck/commit/af0b5854dc2a35d643c06baa25a07bfc425fc154))
+
+
+
+# 3.12.0 (2022-09-09)
+
+
+### Bug Fixes
+
+* **notifications:** Added space in Google Chat notification. ([#9884](https://github.com/spinnaker/deck/issues/9884)) ([ed1d5f8](https://github.com/spinnaker/deck/commit/ed1d5f8691f7155c5c346916ad871c9993ea8363))
+
+
+
+
+
+# [0.22.0](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.21.0...@spinnaker/core@0.22.0) (2022-08-03)
+
+
+### Features
+
+* **dependencies:** Update vulnerable dependencies ([#9875](https://github.com/spinnaker/deck/issues/9875)) ([bf92932](https://github.com/spinnaker/deck/commit/bf92932c9396a88fb902050b52f504e4ac01aaa0))
+
+
+### Performance Improvements
+
+* **pipelinegraph:** Improve the performance of the pipeline graph rendering ([#9871](https://github.com/spinnaker/deck/issues/9871)) ([55fa5d0](https://github.com/spinnaker/deck/commit/55fa5d00beb576d9d9215923bcc4b7ead64a4fba))
+
+
+
+
+
+# [0.21.0](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.20.1...@spinnaker/core@0.21.0) (2022-07-11)
+
+
+### Features
+
+* **rosco:** add Kustomize 4 support ([#9868](https://github.com/spinnaker/deck/issues/9868)) ([53a05ca](https://github.com/spinnaker/deck/commit/53a05ca5aed8d1d9d99e1420a0b1a0408b331c75))
+
+
+
+
+
+## [0.20.1](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.20.0...@spinnaker/core@0.20.1) (2022-07-01)
+
+**Note:** Version bump only for package @spinnaker/core
+
+
+
+
+
+# [0.20.0](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.19.4...@spinnaker/core@0.20.0) (2022-06-22)
+
+
+### Features
+
+* **core:** Synchronize the verticalNavExpandedAtom using an atom effect ([#9859](https://github.com/spinnaker/deck/issues/9859)) ([a81f4ab](https://github.com/spinnaker/deck/commit/a81f4ab9bbcf86d31f31f52390740db62a8e7e5d))
+
+
+
+
+
+## [0.19.4](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.19.3...@spinnaker/core@0.19.4) (2022-05-05)
+
+
+### Bug Fixes
+
+* **core:** apps always display as unconfigured ([#9853](https://github.com/spinnaker/deck/issues/9853)) ([7d45ac7](https://github.com/spinnaker/deck/commit/7d45ac79ee4c68ae1d55584a789acf74616f4d0b)), closes [/github.com/spinnaker/deck/blob/master/packages/core/src/application/config/applicationAttributes.directive.js#L31](https://github.com//github.com/spinnaker/deck/blob/master/packages/core/src/application/config/applicationAttributes.directive.js/issues/L31)
+
+
+
+
+
+## [0.19.3](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.19.2...@spinnaker/core@0.19.3) (2022-04-21)
+
+**Note:** Version bump only for package @spinnaker/core
+
+
+
+
+
+## [0.19.2](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.19.1...@spinnaker/core@0.19.2) (2022-04-09)
+
+**Note:** Version bump only for package @spinnaker/core
+
+
+
+
+
 ## [0.19.1](https://github.com/spinnaker/deck/compare/@spinnaker/core@0.19.0...@spinnaker/core@0.19.1) (2022-03-08)
 
 **Note:** Version bump only for package @spinnaker/core

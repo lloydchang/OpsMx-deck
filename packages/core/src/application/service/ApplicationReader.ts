@@ -39,6 +39,7 @@ export class ApplicationReader {
       });
   }
 
+<<<<<<< HEAD
   public static getApplicationPermissions(applicationName: string): PromiseLike<any> {
     return REST('/applications')
       .path(applicationName)
@@ -55,6 +56,22 @@ export class ApplicationReader {
     return REST('/applications')
       .path(name)
       .query({ expand: expand })
+=======
+  public static getApplicationPermissions(applicationName: string): PromiseLike < any > {
+      return API.one('applications', applicationName)
+          .withParams({
+              expand: false,
+          })
+          .get()
+          .then((application: Application) => {
+              return application.attributes.permissions;
+          });
+  }
+
+  public static getApplication(name: string, expand = true): IPromise<Application> {
+    return API.one('applications', name)
+      .withParams({ expand: expand })
+>>>>>>> 24dbe8d0e (Added manual judgment feature.)
       .get()
       .then((fromServer: Application) => {
         const configs = ApplicationDataSourceRegistry.getDataSources();

@@ -298,10 +298,12 @@ const helpContents: { [key: string]: string } = {
     '<p>Explicitly evaluate SpEL expressions in overrides just prior to manifest baking. Can be paired with the "Skip SpEL evaluation" option in the Deploy Manifest stage when baking a third-party manifest artifact with expressions not meant for Spinnaker to evaluate as SpEL.</p>',
   'pipeline.config.bake.manifest.templateRenderer': '<p>This is the engine used for rendering your manifest.</p>',
   'pipeline.config.bake.manifest.helm.chartFilePath': `
-    <p>This is the relative path to the Chart.yaml file within your Git repo.</p>
-    <p>e.g.: <b>helm/my-chart/Chart.yaml</b></p>`,
+    <p>This is the relative path to the directory containing the Chart.yaml file within your Git repo.</p>
+    <p>e.g.: <b>helm/my-chart</b></p>`,
   'pipeline.config.bake.manifest.helm.rawOverrides':
     'Use <i>--set</i> instead of <i>--set-string</i> when injecting override values. Values injected using <i>--set</i> will be converted to primitive types by Helm.',
+  'pipeline.config.bake.manifest.helm.includeCRDs':
+    '<p>Include Custom Resource Definitions in the templated output.</p>',
   'pipeline.config.bake.manifest.kustomize.filePath': `
     <p>This is the relative path to the kustomization.yaml file within your Git repo.</p>
     <p>e.g.: <b>examples/wordpress/mysql/kustomization.yaml</b></p>`,
@@ -373,7 +375,11 @@ const helpContents: { [key: string]: string } = {
   'pipeline.config.trigger.runAsUser':
     "The current user must have access to the specified service account, and the service account must have access to the current application. Otherwise, you'll receive an 'Access is denied' error.",
   'pipeline.config.trigger.authorizedUser':
+<<<<<<< HEAD
     "The current user must have the permission to approve the manual judgment stage. Otherwise, you'll not be able continue to the next pipeline stage.",
+=======
+        "The current user must have the permission to approve the manual judgment stage. Otherwise, you'll not be able continue to the next pipeline stage.",
+>>>>>>> 24dbe8d0e (Added manual judgment feature.)
   'pipeline.config.script.repoUrl':
     '<p>Path to the repo hosting the scripts in Stash. (e.g. <samp>CDL/mimir-scripts</samp>). Leave empty to use the default.</p>',
   'pipeline.config.script.repoBranch':
@@ -468,6 +474,8 @@ const helpContents: { [key: string]: string } = {
       Typing into this verification field is annoying! But it serves as a reminder that you are
       changing something in an account deemed important, and prevents you from accidentally changing something
       when you meant to click on the "Cancel" button.`,
+  'pipeline.skipDownstreamOutput':
+    'when checked, the output of the child pipeline is not added to the pipeline context',
   'pipeline.waitForCompletion':
     'if unchecked, marks the stage as successful right away without waiting for the pipeline to complete',
   'jenkins.waitForCompletion':

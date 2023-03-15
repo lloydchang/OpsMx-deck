@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.1.1...@spinnaker/appengine@0.1.2) (2022-10-21)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.1.1](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.1.0...@spinnaker/appengine@0.1.1) (2022-10-06)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+# [0.1.0](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.87...@spinnaker/appengine@0.1.0) (2022-08-03)
+
+
+### Features
+
+* **dependencies:** Update vulnerable dependencies ([#9875](https://github.com/spinnaker/deck/issues/9875)) ([bf92932](https://github.com/spinnaker/deck/commit/bf92932c9396a88fb902050b52f504e4ac01aaa0))
+
+
+
+
+
+## [0.0.87](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.86...@spinnaker/appengine@0.0.87) (2022-07-11)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.0.86](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.85...@spinnaker/appengine@0.0.86) (2022-07-01)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.0.85](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.84...@spinnaker/appengine@0.0.85) (2022-06-22)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.0.84](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.83...@spinnaker/appengine@0.0.84) (2022-05-05)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.0.83](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.82...@spinnaker/appengine@0.0.83) (2022-04-21)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
+## [0.0.82](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.81...@spinnaker/appengine@0.0.82) (2022-04-09)
+
+**Note:** Version bump only for package @spinnaker/appengine
+
+
+
+
+
 ## [0.0.81](https://github.com/spinnaker/deck/compare/@spinnaker/appengine@0.0.80...@spinnaker/appengine@0.0.81) (2022-03-08)
 
 **Note:** Version bump only for package @spinnaker/appengine

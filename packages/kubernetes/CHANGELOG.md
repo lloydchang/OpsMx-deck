@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.3.1...@spinnaker/kubernetes@0.3.2) (2022-10-21)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.3.1](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.3.0...@spinnaker/kubernetes@0.3.1) (2022-10-06)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+# [0.3.0](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.16...@spinnaker/kubernetes@0.3.0) (2022-08-03)
+
+
+### Features
+
+* **dependencies:** Update vulnerable dependencies ([#9875](https://github.com/spinnaker/deck/issues/9875)) ([bf92932](https://github.com/spinnaker/deck/commit/bf92932c9396a88fb902050b52f504e4ac01aaa0))
+
+
+
+
+
+## [0.2.16](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.15...@spinnaker/kubernetes@0.2.16) (2022-07-11)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.2.15](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.14...@spinnaker/kubernetes@0.2.15) (2022-07-01)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.2.14](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.13...@spinnaker/kubernetes@0.2.14) (2022-06-22)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.2.13](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.12...@spinnaker/kubernetes@0.2.13) (2022-05-05)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.2.12](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.11...@spinnaker/kubernetes@0.2.12) (2022-04-21)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
+## [0.2.11](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.10...@spinnaker/kubernetes@0.2.11) (2022-04-09)
+
+**Note:** Version bump only for package @spinnaker/kubernetes
+
+
+
+
+
 ## [0.2.10](https://github.com/spinnaker/deck/compare/@spinnaker/kubernetes@0.2.9...@spinnaker/kubernetes@0.2.10) (2022-03-08)
 
 **Note:** Version bump only for package @spinnaker/kubernetes

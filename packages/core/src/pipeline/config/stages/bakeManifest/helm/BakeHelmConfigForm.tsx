@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { IFormikStageConfigInjectedProps } from '../../FormikStageConfig';
+import { ManifestRenderers } from '../ManifestRenderers';
 import { AccountService } from '../../../../../account';
 import {
   ArtifactTypePatterns,
@@ -34,6 +35,7 @@ export class BakeHelmConfigForm extends React.Component<IFormikStageConfigInject
     ArtifactTypePatterns.S3_OBJECT,
     ArtifactTypePatterns.HELM_CHART,
     ArtifactTypePatterns.HTTP_FILE,
+    ArtifactTypePatterns.ORACLE_OBJECT,
   );
 
   public componentDidMount() {
@@ -256,6 +258,19 @@ export class BakeHelmConfigForm extends React.Component<IFormikStageConfigInject
             onChange={() => this.props.formik.setFieldValue('rawOverrides', !stage.rawOverrides)}
           />
         </StageConfigField>
+        {stage.templateRenderer === ManifestRenderers.HELM3 && (
+          <StageConfigField
+            fieldColumns={6}
+            helpKey={'pipeline.config.bake.manifest.helm.includeCRDs'}
+            label="Include CRDs"
+          >
+            <CheckboxInput
+              value={stage.includeCRDs}
+              text={''}
+              onChange={() => this.props.formik.setFieldValue('includeCRDs', !stage.includeCRDs)}
+            />
+          </StageConfigField>
+        )}
         <StageConfigField
           fieldColumns={6}
           helpKey={'pipeline.config.bake.manifest.overrideExpressionEvaluation'}

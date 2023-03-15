@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.55](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.54...@spinnaker/dcos@0.0.55) (2022-10-21)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.54](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.53...@spinnaker/dcos@0.0.54) (2022-10-06)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.53](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.52...@spinnaker/dcos@0.0.53) (2022-08-03)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.52](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.51...@spinnaker/dcos@0.0.52) (2022-07-11)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.51](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.50...@spinnaker/dcos@0.0.51) (2022-07-01)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.50](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.49...@spinnaker/dcos@0.0.50) (2022-06-22)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.49](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.48...@spinnaker/dcos@0.0.49) (2022-05-05)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.48](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.47...@spinnaker/dcos@0.0.48) (2022-04-21)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
+## [0.0.47](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.46...@spinnaker/dcos@0.0.47) (2022-04-09)
+
+**Note:** Version bump only for package @spinnaker/dcos
+
+
+
+
+
 ## [0.0.46](https://github.com/spinnaker/deck/compare/@spinnaker/dcos@0.0.45...@spinnaker/dcos@0.0.46) (2022-03-08)
 
 **Note:** Version bump only for package @spinnaker/dcos

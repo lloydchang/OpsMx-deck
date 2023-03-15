@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.353](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.352...@spinnaker/ecs@0.0.353) (2022-10-21)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.352](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.351...@spinnaker/ecs@0.0.352) (2022-10-06)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.351](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.350...@spinnaker/ecs@0.0.351) (2022-08-25)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.350](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.349...@spinnaker/ecs@0.0.350) (2022-08-03)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.349](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.348...@spinnaker/ecs@0.0.349) (2022-07-11)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.348](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.347...@spinnaker/ecs@0.0.348) (2022-07-01)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.347](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.346...@spinnaker/ecs@0.0.347) (2022-06-22)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.346](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.345...@spinnaker/ecs@0.0.346) (2022-05-05)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.345](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.344...@spinnaker/ecs@0.0.345) (2022-04-21)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
+## [0.0.344](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.343...@spinnaker/ecs@0.0.344) (2022-04-09)
+
+**Note:** Version bump only for package @spinnaker/ecs
+
+
+
+
+
 ## [0.0.343](https://github.com/spinnaker/deck/compare/@spinnaker/ecs@0.0.342...@spinnaker/ecs@0.0.343) (2022-03-08)
 
 **Note:** Version bump only for package @spinnaker/ecs

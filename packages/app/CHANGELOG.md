@@ -3,6 +3,101 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/spinnaker/deck/compare/deck-app@2.3.2...deck-app@2.3.3) (2022-10-21)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.3.2](https://github.com/spinnaker/deck/compare/deck-app@2.3.1...deck-app@2.3.2) (2022-10-06)
+
+
+### Bug Fixes
+
+* **core:** Do not set static document base URL ([#9890](https://github.com/spinnaker/deck/issues/9890)) ([5ac7516](https://github.com/spinnaker/deck/commit/5ac75160cf8b6099aaea8b31874ebbbb13409b2a)), closes [#9802](https://github.com/spinnaker/deck/issues/9802) [spinnaker/spinnaker#6723](https://github.com/spinnaker/spinnaker/issues/6723)
+
+
+
+
+
+## [2.3.1](https://github.com/spinnaker/deck/compare/deck-app@2.3.0...deck-app@2.3.1) (2022-08-25)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+# [2.3.0](https://github.com/spinnaker/deck/compare/deck-app@2.2.9...deck-app@2.3.0) (2022-08-03)
+
+
+### Features
+
+* **dependencies:** Update vulnerable dependencies ([#9875](https://github.com/spinnaker/deck/issues/9875)) ([bf92932](https://github.com/spinnaker/deck/commit/bf92932c9396a88fb902050b52f504e4ac01aaa0))
+* **provider/google:** enhanced autoscaler functionality. ([#9867](https://github.com/spinnaker/deck/issues/9867)) ([dbdee6d](https://github.com/spinnaker/deck/commit/dbdee6de89f78b112d4a5464cecdbb822c8e578b))
+
+
+
+
+
+## [2.2.9](https://github.com/spinnaker/deck/compare/deck-app@2.2.8...deck-app@2.2.9) (2022-07-11)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.8](https://github.com/spinnaker/deck/compare/deck-app@2.2.7...deck-app@2.2.8) (2022-07-01)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.7](https://github.com/spinnaker/deck/compare/deck-app@2.2.6...deck-app@2.2.7) (2022-06-22)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.6](https://github.com/spinnaker/deck/compare/deck-app@2.2.5...deck-app@2.2.6) (2022-05-13)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.5](https://github.com/spinnaker/deck/compare/deck-app@2.2.4...deck-app@2.2.5) (2022-05-05)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.4](https://github.com/spinnaker/deck/compare/deck-app@2.2.3...deck-app@2.2.4) (2022-04-21)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
+## [2.2.3](https://github.com/spinnaker/deck/compare/deck-app@2.2.2...deck-app@2.2.3) (2022-04-09)
+
+**Note:** Version bump only for package deck-app
+
+
+
+
+
 ## [2.2.2](https://github.com/spinnaker/deck/compare/deck-app@2.2.1...deck-app@2.2.2) (2022-03-08)
 
 **Note:** Version bump only for package deck-app
