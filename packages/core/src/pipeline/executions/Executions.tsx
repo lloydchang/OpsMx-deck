@@ -294,7 +294,9 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
     const { app } = this.props;
     const [, queryString] = window.location.href.split('?');
     const queryParams = UrlParser.parseQueryString(queryString);
-
+    queryParams['fromISD'] = (queryParams['fromISD'] || window.location.href.includes('pipeline-status')) ? true : false;
+    console.log(window.location.href);
+    console.log(this.state)
     const { filtersExpanded, loading, sortFilter, tags, triggeringExecution, reloadingForFilters } = this.state;
 
     const hasPipelines = !!(get(app, 'executions.data', []).length || get(app, 'pipelineConfigs.data', []).length);

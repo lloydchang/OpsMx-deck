@@ -8,15 +8,19 @@ import { Executions } from './executions/Executions';
 import { filterModelConfig } from './filter/ExecutionFilterModel';
 import { INestedState, StateConfigProvider } from '../navigation/state.provider';
 import { ExecutionService } from './service/execution.service';
+import { UrlParser } from '../navigation/urlParser';
 
 export const PIPELINE_STATES = 'spinnaker.core.pipeline.states';
 module(PIPELINE_STATES, [APPLICATION_STATE_PROVIDER]).config([
   'applicationStateProvider',
   'stateConfigProvider',
   (applicationStateProvider: ApplicationStateProvider, stateConfigProvider: StateConfigProvider) => {
+    const [, queryString] = window.location.href.split('?');
+    const queryParams = UrlParser.parseQueryString(queryString);
+    const fromIsdUrl = queryParams['fromISD'] ? '&fromISD' : '';
     const pipelineConfig: INestedState = {
       name: 'pipelineConfig',
-      url: '/configure/:pipelineId?executionId&new',
+      url: '/configure/:pipelineId?executionId&new'+fromIsdUrl,
       views: {
         pipelines: {
           templateUrl: require('../pipeline/config/pipelineConfig.html'),
@@ -84,7 +88,7 @@ module(PIPELINE_STATES, [APPLICATION_STATE_PROVIDER]).config([
     const pipelines: INestedState = {
       name: 'pipelines',
       url: '/executions',
-      redirectTo: (trans: Transition) => `${trans.to().name}.executions`,
+      redirectTo: (trans: Transition) => `${trans.to().name}.executions`+'?fromISD',
       views: {
         insight: {
           template: '<div ui-view="pipelines" sticky-headers class="flex-fill"></div>',

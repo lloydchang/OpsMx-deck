@@ -9,10 +9,10 @@ if (typeof process === 'undefined') {
 
 // Use environment variables when developing locally via 'yarn start', i.e.:
 // API_HOST=https://gate.spinnaker.mycompany.com yarn start
-const apiHost = import.meta.env.VITE_API_HOST || process.env.API_HOST || 'http://localhost:8084';
+const apiHost = import.meta.env.VITE_API_HOST || process.env.API_HOST || 'http://localhost:8080/gate/';
 const atlasWebComponentsUrl = import.meta.env.VITE_ATLAS_WEB_COMPONENTS_URL || process.env.ATLAS_WEB_COMPONENTS_URL;
 const authEndpoint = import.meta.env.VITE_AUTH_ENDPOINT || process.env.AUTH_ENDPOINT || apiHost + '/auth/user';
-const authEnabled = import.meta.env.VITE_AUTH_ENABLED === 'true' || process.env.AUTH_ENABLED === 'true';
+const authEnabled = true; // const authEnabled = import.meta.env.VITE_AUTH_ENABLED === 'true' || process.env.AUTH_ENABLED === 'true';const authEnabled = import.meta.env.VITE_AUTH_ENABLED === 'true' || process.env.AUTH_ENABLED === 'true';
 const bakeryDetailUrl =
   import.meta.env.VITE_BAKERY_DETAIL_URL ||
   process.env.BAKERY_DETAIL_URL ||
@@ -124,6 +124,7 @@ window.spinnakerSettings = {
     kubernetesRawResources: k8sRawResourcesEnabled,
   },
   gateUrl: apiHost,
+
   gitSources: ['stash', 'github', 'bitbucket', 'gitlab'],
   hiddenStages: [],
   managedDelivery: {

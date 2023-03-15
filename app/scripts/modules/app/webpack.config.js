@@ -61,6 +61,7 @@ function configure(env, webpackOpts) {
       app: './src/app.ts',
     },
     output: {
+      publicPath: '/deck/',
       path: path.join(`${__dirname}/../../../../build/webpack`, process.env.SPINNAKER_ENV || ''),
       filename: '[name].js',
     },

@@ -22,7 +22,6 @@ import { EntityNotifications } from '../../../entityTag/notifications/EntityNoti
 import { Execution } from '../execution/Execution';
 import { ExecutionAction } from '../executionAction/ExecutionAction';
 import { ManualExecutionModal } from '../../manualExecution';
-import { UrlParser } from '../../../navigation/urlParser';
 import { Overridable } from '../../../overrideRegistry';
 import { Placement } from '../../../presentation/Placement';
 import { Popover } from '../../../presentation/Popover';
@@ -103,9 +102,9 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
   public configure(id: string): void {
     const { $state } = ReactInjector;
     if (!$state.current.name.includes('.executions.execution')) {
-      $state.go('^.pipelineConfig', { pipelineId: id });
+      $state.go('^.pipelineConfig', { pipelineId: id, fromIsd:true });
     } else {
-      $state.go('^.^.pipelineConfig', { pipelineId: id });
+      $state.go('^.^.pipelineConfig', { pipelineId: id, fromIsd:true  });
     }
   }
 
@@ -296,8 +295,7 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
     const pipelineDescription = pipelineConfig && pipelineConfig.description;
     const hasRunningExecutions = group.runningExecutions && group.runningExecutions.length > 0;
 
-    const [, queryString] = window.location.href.split('?');
-    const queryParams = UrlParser.parseQueryString(queryString);
+   
 
     const deploymentAccountLabels = without(
       this.state.deploymentAccounts || [],
@@ -386,12 +384,12 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                     {pipelineConfig && <TriggersTag pipeline={pipelineConfig} />}
                     {pipelineConfig && <NextRunTag pipeline={pipelineConfig} />}
 
-                    {!queryParams['fromISD'] && (
+                   
                       <ExecutionAction handleClick={this.handleConfigureClicked}>
                         <span className="glyphicon glyphicon-cog" />
                         {' Configure'}
                       </ExecutionAction>
-                    )}
+                    
                     {pipelineConfig && (
                       <ExecutionAction
                         handleClick={this.handleTriggerClicked}
