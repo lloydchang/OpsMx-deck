@@ -63,6 +63,7 @@ angular
         }
         this.setViewState({ isDirty: $scope.viewState.original !== angular.toJson($scope.pipeline) });
       };
+     
        // $scope.fromISD = false;
 
       // For standard pipelines, a 'renderablePipeline' is just the pipeline config.
@@ -101,7 +102,10 @@ angular
       };
 
      $scope.fromISD = ($location.$$search.fromISD || $state.current.url.includes('fromISD'))  ? true : false;
-    
+     $scope.application['fromISD'] = $scope.fromISD;
+    //  window.globalThis.location.href.concat('?selectedPipeline=+'+$scope.pipeline.name);
+      
+      
 
       this.hideNavigationMenu = () => {
         // give the navigate method a chance to fire before hiding the menu

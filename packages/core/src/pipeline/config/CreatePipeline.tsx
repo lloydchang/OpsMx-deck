@@ -23,6 +23,7 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
     const { application } = this.props;
     const [, queryString] = window.location.href.split('?');
     const queryParams = UrlParser.parseQueryString(queryString);
+    
     const pipelineConfigs = get(application, 'pipelineConfigs.data', []);
     const hasPipelineConfigs = pipelineConfigs.length > 0;
 
@@ -48,7 +49,7 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
         style={{ marginRight: '5px' }}
         onToggle={this.dropdownToggled}
       >
-        { !queryParams['fromISD'] && <CreatePipelineButton application={this.props.application} />}
+        { (!queryParams['fromISD'] && !application['fromISD'])  && <CreatePipelineButton application={this.props.application} />}
         <Dropdown.Toggle className="btn btn-sm btn-default dropdown-toggle">
           <span className="visible-xl-inline">
             <span className="glyphicon glyphicon-cog" /> Configure
