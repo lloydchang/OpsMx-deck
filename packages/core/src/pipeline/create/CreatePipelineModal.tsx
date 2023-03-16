@@ -551,22 +551,22 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
         )}
         <Modal.Footer>
           <Button onClick={this.close}>Cancel</Button>
-          {/* {SETTINGS.feature.pipelineTemplates && hasSelectedATemplate && (REMOVE ATLASTTTTTTTTTTTTTTTTTTTTTTTTTTTT */}
+          {SETTINGS.feature.pipelineTemplates && hasSelectedATemplate && (
             <SubmitButton
               label="Continue"
               submitting={this.state.submitting}
               isDisabled={!formValid || this.state.submitting || this.state.saveError || this.state.loading}
               onClick={this.submitPipelineTemplateConfig}
             />
-          {/* )} */}
-          {/* {!hasSelectedATemplate && ( */}
+           )} 
+          {!hasSelectedATemplate && (
             <SubmitButton
               label="Create"
               onClick={this.submit}
               submitting={this.state.submitting}
               isDisabled={!formValid || this.state.submitting || this.state.saveError || this.state.loading}
             />
-          {/* )} */}
+           )} 
         </Modal.Footer>
       </Modal>
     );

@@ -38,8 +38,7 @@ angular
         isTemplatedPipeline: '<',
         isV2TemplatedPipeline: '<',
         hasDynamicSource: '<',
-        templateError: '<',
-        fromISD:'<'
+        templateError: '<'
       },
       controller: 'PipelineConfigurerCtrl as pipelineConfigurerCtrl',
       templateUrl: require('./pipelineConfigurer.html'),
