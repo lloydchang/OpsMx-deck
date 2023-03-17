@@ -8,7 +8,7 @@ import { IPipeline } from '../../domain';
 import { Tooltip } from '../../presentation/Tooltip';
 import { ReactInjector } from '../../reactShims';
 import { logger } from '../../utils';
-import { UrlParser } from '../../navigation/urlParser';
+
 
 export interface ICreatePipelineProps {
   application: Application;
@@ -21,8 +21,7 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
 
   public render() {
     const { application } = this.props;
-    const [, queryString] = window.location.href.split('?');
-    const queryParams = UrlParser.parseQueryString(queryString);
+
     
     const pipelineConfigs = get(application, 'pipelineConfigs.data', []);
     const hasPipelineConfigs = pipelineConfigs.length > 0;
@@ -49,7 +48,7 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
         style={{ marginRight: '5px' }}
         onToggle={this.dropdownToggled}
       >
-        { (!queryParams['fromISD'] && !application['fromISD'])  && <CreatePipelineButton application={this.props.application} />}
+          <CreatePipelineButton application={this.props.application} />
         <Dropdown.Toggle className="btn btn-sm btn-default dropdown-toggle">
           <span className="visible-xl-inline">
             <span className="glyphicon glyphicon-cog" /> Configure

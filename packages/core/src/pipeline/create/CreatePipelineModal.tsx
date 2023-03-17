@@ -435,7 +435,8 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                     </div>
                   </div>
                 )}
-                {SETTINGS.feature.pipelineTemplates && !preselectedTemplate && !this.state.command.strategy && (
+                {!SETTINGS.feature.pipelineTemplates && !preselectedTemplate && !this.state.command.strategy && (
+                 
                   <div className="form-group clearfix">
                     <div className="col-md-3 sm-label-right">
                       <strong>Create From</strong>
@@ -459,7 +460,8 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                       </label>
                     </div>
                   </div>
-                )}
+                
+          ) } 
                 {this.state.configs.length > 1 && !this.state.command.strategy && !this.state.useTemplate && (
                   <div>
                     {SETTINGS.feature.pipelineTemplates && <hr />}
@@ -480,7 +482,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                     </div>
                   </div>
                 )}
-                {SETTINGS.feature.pipelineTemplates && hasSelectedATemplate && (
+                {!SETTINGS.feature.pipelineTemplates && hasSelectedATemplate && (
                   <div>
                     <hr />
                     {this.state.templates.length > 0 && (
@@ -542,9 +544,9 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                           </em>
                         </div>
                       </div>
-                    )}
+                     )} 
                   </div>
-                )}
+                 )}
               </form>
             )}
           </Modal.Body>
