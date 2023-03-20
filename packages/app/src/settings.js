@@ -50,7 +50,7 @@ const managedServiceAccountsEnabled =
   process.env.MANAGED_SERVICE_ACCOUNTS_ENABLED === 'true';
 const managedResourcesEnabled =
   import.meta.env.VITE_MANAGED_RESOURCES_ENABLED === 'true' || process.env.MANAGED_RESOURCES_ENABLED === 'true';
-const manualJudgmentParentPipelineEnabled = import.meta.env.MJ_PARENTPIPELINE_ENABLED === 'true' || false;
+const manualJudgmentParentPipelineEnabled = import.meta.env.MJ_PARENTPIPELINE_ENABLED !== 'false';
 const onDemandClusterThreshold =
   import.meta.env.VITE_ON_DEMAND_CLUSTER_THRESHOLD || process.env.ON_DEMAND_CLUSTER_THRESHOLD || '350';
 const reduxLoggerEnabled = import.meta.env.VITE_REDUX_LOGGER === 'true' || process.env.REDUX_LOGGER === 'true';
@@ -63,6 +63,7 @@ const k8sRawResourcesEnabled =
   import.meta.env.VITE_K8S_RAW_RESOURCES_ENABLED === 'true' ||
   process.env.K8S_RAW_RESOURCES_ENABLED === 'true' ||
   false;
+const dynamicRollbackTimeoutEnabled = import.meta.env.DYNAMIC_ROLLBACK_TIMEOUT_ENABLED === 'true' || false;
 
 window.spinnakerSettings = {
   authEnabled: authEnabled,
@@ -90,6 +91,7 @@ window.spinnakerSettings = {
     'aws',
     'azure',
     'cloudfoundry',
+    'cloudrun',
     'dcos',
     'ecs',
     'gce',
@@ -119,6 +121,7 @@ window.spinnakerSettings = {
     managedServiceAccounts: managedServiceAccountsEnabled,
     managedResources: managedResourcesEnabled,
     manualJudgmentParentPipeline: manualJudgmentParentPipelineEnabled,
+    dynamicRollbackTimeout: dynamicRollbackTimeoutEnabled,
     notifications: false,
     pagerDuty: false,
     pipelineTemplates: false,
@@ -207,6 +210,11 @@ window.spinnakerSettings = {
     cloudfoundry: {
       defaults: {
         account: 'my-cloudfoundry-account',
+      },
+    },
+    cloudrun: {
+      defaults: {
+        account: 'my-cloudrun-account',
       },
     },
     dcos: {
