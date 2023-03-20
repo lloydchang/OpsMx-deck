@@ -1,8 +1,10 @@
 import { $http, $log } from 'ngimport';
 import React from 'react';
 // @ts-ignore
-import { UrlParser } from '../navigation';
+import version from 'root/version.json';
 
+// @ts-ignore
+import { UrlParser } from '../navigation';
 import type { IScheduler } from '../scheduler/SchedulerFactory';
 import { SchedulerFactory } from '../scheduler/SchedulerFactory';
 import { timestamp } from '../utils/timeFormatters';

@@ -9,8 +9,8 @@ import { MigrationTag } from './MigrationTag';
 import { AccountTag } from '../../../account';
 import type { Application } from '../../../application/application.model';
 import { CollapsibleSectionStateCache } from '../../../cache';
-import { ConfirmationModalService } from '../../../confirmationModal';
 import { PipelineTemplateReader, PipelineTemplateV2Service } from '../../config/templates';
+import { ConfirmationModalService } from '../../../confirmationModal';
 import type {
   IExecution,
   IExecutionGroup,
@@ -38,7 +38,7 @@ import { Spinner } from '../../../widgets/spinners/Spinner';
 
 import './executionGroup.less';
 
-const ACCOUNT_TAG_OVERFLOW_LIMIT = SETTINGS.accountTagLimit ?? 1;
+const ACCOUNT_TAG_OVERFLOW_LIMIT = 1;
 
 export interface IExecutionGroupProps {
   group: IExecutionGroup;
@@ -172,10 +172,10 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
           .then((command) => {
             this.startPipeline(command)
               .then((resp) => {
-                /*eslint-disable no-console*/ console.log(resp)
+                /*eslint-disable no-console*/ console.log(resp);
               })
               .catch((exception) => {
-                /*eslint-disable no-console*/ console.log(exception)
+                /*eslint-disable no-console*/ console.log(exception);
                 ConfirmationModalService.confirm({
                   header: `Run Pipeline`,
                   buttonText: 'Okay',
@@ -186,7 +186,7 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                 });
               });
           })
-          .catch(() => { }),
+          .catch(() => {}),
       );
   }
 

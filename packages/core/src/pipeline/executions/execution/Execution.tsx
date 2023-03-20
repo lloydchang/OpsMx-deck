@@ -17,8 +17,8 @@ import type { IExecutionViewState, IPipelineGraphNode } from '../../config/graph
 import { SETTINGS } from '../../../config/settings';
 import { ConfirmationModalService } from '../../../confirmationModal';
 import { StageExecutionDetails } from '../../details/StageExecutionDetails';
-import { IExecution, IExecutionStageSummary, IPipeline, IRestartDetails } from '../../../domain';
-import { ISortFilter } from '../../../filterModel';
+import type { IExecution, IExecutionStageSummary, IPipeline, IRestartDetails } from '../../../domain';
+import type { ISortFilter } from '../../../filterModel';
 import { UrlParser } from '../../../navigation';
 import { Overridable } from '../../../overrideRegistry';
 import { Tooltip } from '../../../presentation/Tooltip';
