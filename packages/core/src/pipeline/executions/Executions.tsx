@@ -13,7 +13,6 @@ import { ExecutionFilterService } from '../filter/executionFilter.service';
 import type { IFilterTag, ISortFilter } from '../../filterModel';
 import { FilterCollapse, FilterTags } from '../../filterModel';
 import { ManualExecutionModal } from '../manualExecution';
-import { UrlParser } from '../../navigation/urlParser';
 import { Overridable } from '../../overrideRegistry';
 import { Tooltip } from '../../presentation/Tooltip';
 import { ReactInjector } from '../../reactShims';
@@ -293,8 +292,6 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
 
   public render(): React.ReactElement<Executions> {
     const { app } = this.props;
-    const [, queryString] = window.location.href.split('?');
-    const queryParams = UrlParser.parseQueryString(queryString);
 
     const { filtersExpanded, loading, sortFilter, tags, triggeringExecution, reloadingForFilters } = this.state;
 
@@ -363,11 +360,9 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
                       )}
                     </a>
                   </div>
-                  {!queryParams['fromISD'] && (
-                    <div className="pull-right">
-                      <CreatePipeline application={app} />
-                    </div>
-                  )}
+                  <div className="pull-right">
+                    <CreatePipeline application={app} />
+                  </div>
                   <form className="form-inline" style={{ marginBottom: '5px' }}>
                     {sortFilter.groupBy && (
                       <div className="form-group" style={{ marginRight: '20px' }}>
