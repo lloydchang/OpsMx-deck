@@ -102,7 +102,7 @@ angular
        if($location.$$search.fromISD){
         $scope.fromISD = true;
        }
-       else if($state.current?.url?.includes('fromISD')){
+       else if($state && $state.current && $state.current.url && $state.current.url.includes('fromISD')){
         $scope.fromISD = true;
        }
        else{
