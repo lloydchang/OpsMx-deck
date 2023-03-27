@@ -386,12 +386,12 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                     {pipelineConfig && <TriggersTag pipeline={pipelineConfig} />}
                     {pipelineConfig && <NextRunTag pipeline={pipelineConfig} />}
 
-                    {!queryParams['fromISD'] && (
+                    
                       <ExecutionAction handleClick={this.handleConfigureClicked}>
                         <span className="glyphicon glyphicon-cog" />
                         {' Configure'}
                       </ExecutionAction>
-                    )}
+                    
                     {pipelineConfig && (
                       <ExecutionAction
                         handleClick={this.handleTriggerClicked}
