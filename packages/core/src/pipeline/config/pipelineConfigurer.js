@@ -63,7 +63,7 @@ angular
         this.setViewState({ isDirty: $scope.viewState.original !== angular.toJson($scope.pipeline) });
       };
 
-      $scope.fromISD = false;
+      // $scope.fromISD = false;
 
       // For standard pipelines, a 'renderablePipeline' is just the pipeline config.
       // For both v1 and v2 templated pipelines, a 'renderablePipeline' is the pipeline template plan, and '$scope.pipeline' is the template config.
@@ -99,8 +99,16 @@ angular
       $scope.navMenuState = {
         showMenu: false,
       };
-
-      $scope.fromISD = $location.$$search.fromISD ? true : false;
+       if($location.$$search.fromISD){
+        $scope.fromISD = true;
+       }
+       else if($state && $state.current && $state.current.url && $state.current.url.includes('fromISD')){
+        $scope.fromISD = true;
+       }
+       else{
+        $scope.fromISD = false;
+       }
+      $scope.application['fromISD'] = $scope.fromISD;
 
       this.hideNavigationMenu = () => {
         // give the navigate method a chance to fire before hiding the menu

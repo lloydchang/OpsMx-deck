@@ -2,7 +2,7 @@
   <div class="pipeline-config-heading">
     <div class="config-heading-row">
       <h3>
-        <a ng-if="!fromISD" class="btn btn-configure" ui-sref="^.executions" uib-tooltip="Back to Executions">
+        <a class="btn btn-configure" ui-sref="^.executions" uib-tooltip="Back to Executions">
           <span class="glyphicon glyphicon glyphicon-circle-arrow-left"></span>
         </a>
         <a
@@ -30,7 +30,7 @@
             tool-tip="'Copy permalink to clipboard'"
           ></copy-to-clipboard>
         </div>
-        <div class="create-action" ng-if="!fromISD">
+        <div class="create-action">
           <create-pipeline application="application"></create-pipeline>
         </div>
         <div class="pipeline-actions text-right">
