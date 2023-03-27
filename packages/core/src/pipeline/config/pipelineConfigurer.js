@@ -99,8 +99,15 @@ angular
       $scope.navMenuState = {
         showMenu: false,
       };
-
-      $scope.fromISD = $location.$$search.fromISD || $state.current?.url?.includes('fromISD') ? true : false;
+       if($location.$$search.fromISD){
+        $scope.fromISD = true;
+       }
+       else if($state.current?.url?.includes('fromISD')){
+        $scope.fromISD = true;
+       }
+       else{
+        $scope.fromISD = false;
+       }
       $scope.application['fromISD'] = $scope.fromISD;
 
       this.hideNavigationMenu = () => {
