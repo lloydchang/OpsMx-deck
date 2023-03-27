@@ -100,7 +100,7 @@ angular
         showMenu: false,
       };
 
-      $scope.fromISD = $location.$$search.fromISD || $state.current.url.includes('fromISD') ? true : false;
+      $scope.fromISD = $location.$$search.fromISD || $state.current?.url?.includes('fromISD') ? true : false;
       $scope.application['fromISD'] = $scope.fromISD;
 
       this.hideNavigationMenu = () => {
