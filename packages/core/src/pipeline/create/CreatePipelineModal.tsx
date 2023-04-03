@@ -25,6 +25,7 @@ import { Overridable } from '../../overrideRegistry';
 import { Spinner } from '../../widgets/spinners/Spinner';
 
 import './createPipelineModal.less';
+import { UIRouterContext } from '@uirouter/react-hybrid';
 
 export interface ICreatePipelineModalState {
   submitting: boolean;
@@ -64,6 +65,7 @@ export interface ICreatePipelineModalProps {
 }
 
 @Overridable('core.pipeline.CreatePipelineModal')
+@UIRouterContext
 export class CreatePipelineModal extends React.Component<ICreatePipelineModalProps, ICreatePipelineModalState> {
   constructor(props: ICreatePipelineModalProps) {
     super(props);
