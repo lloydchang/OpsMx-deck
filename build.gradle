@@ -36,7 +36,6 @@ task eslintPluginCompile(type: YarnTask) {
   workingDir = file(Paths.get("packages", "eslint-plugin"))
   yarnCommand = ["tsc"]
 }
-webpack.outputs.dir file('build/webpack')
 
 task eslintPluginTest(type: YarnTask) {
   dependsOn "eslintPluginCompile"
