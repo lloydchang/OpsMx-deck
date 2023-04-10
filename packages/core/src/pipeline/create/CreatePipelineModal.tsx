@@ -1,3 +1,4 @@
+/* eslint-disable @spinnaker/import-sort */
 import { UISref } from '@uirouter/react';
 import type { IHttpPromiseCallbackArg } from 'angular';
 import { cloneDeep, get, uniqBy } from 'lodash';

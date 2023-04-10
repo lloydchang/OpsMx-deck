@@ -1,3 +1,4 @@
+/* eslint-disable @spinnaker/import-sort */
 import classnames from 'classnames';
 import { flatten, uniq, without } from 'lodash';
 import React from 'react';
@@ -172,10 +173,10 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
           .then((command) => {
             this.startPipeline(command)
               .then((resp) => {
-                /*eslint-disable no-console*/ console.log(resp)
+                /*eslint-disable no-console*/ console.log(resp);
               })
               .catch((exception) => {
-                /*eslint-disable no-console*/ console.log(exception)
+                /*eslint-disable no-console*/ console.log(exception);
                 ConfirmationModalService.confirm({
                   header: `Run Pipeline`,
                   buttonText: 'Okay',
@@ -186,7 +187,7 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                 });
               });
           })
-          .catch(() => { }),
+          .catch(() => {}),
       );
   }
 
@@ -297,7 +298,6 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
     const pipelineDescription = pipelineConfig && pipelineConfig.description;
     const hasRunningExecutions = group.runningExecutions && group.runningExecutions.length > 0;
 
-
     const deploymentAccountLabels = without(
       this.state.deploymentAccounts || [],
       ...(group.targetAccounts || []),
@@ -385,12 +385,11 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                     {pipelineConfig && <TriggersTag pipeline={pipelineConfig} />}
                     {pipelineConfig && <NextRunTag pipeline={pipelineConfig} />}
 
-                    
-                      <ExecutionAction handleClick={this.handleConfigureClicked}>
-                        <span className="glyphicon glyphicon-cog" />
-                        {' Configure'}
-                      </ExecutionAction>
-                    
+                    <ExecutionAction handleClick={this.handleConfigureClicked}>
+                      <span className="glyphicon glyphicon-cog" />
+                      {' Configure'}
+                    </ExecutionAction>
+
                     {pipelineConfig && (
                       <ExecutionAction
                         handleClick={this.handleTriggerClicked}

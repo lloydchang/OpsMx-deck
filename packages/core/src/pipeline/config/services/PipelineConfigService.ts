@@ -53,7 +53,8 @@ export class PipelineConfigService {
               if (results['services']?.length > 0) {
                 const index = results['services'].map((i: { serviceName: any }) => i.serviceName).indexOf(pipelineName);
                 const pipelines = results.services[index]?.pipelines;
-                const pipelineIndex = pipelines && pipelines.findIndex((pipeline: any) => pipeline.pipelineName == pipelineName);
+                const pipelineIndex =
+                  pipelines && pipelines.findIndex((pipeline: any) => pipeline.pipelineName == pipelineName);
 
                 if (Array.isArray(pipeline.stages)) {
                   pipeline.stages.forEach((stage: any) => {

@@ -1,3 +1,4 @@
+/* eslint-disable @spinnaker/import-sort */
 import { get } from 'lodash';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';

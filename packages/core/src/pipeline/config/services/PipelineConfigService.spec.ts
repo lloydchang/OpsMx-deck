@@ -87,7 +87,7 @@ describe('PipelineConfigService', () => {
   });
 
   xdescribe('getPipelines', () => {
-    it('should return pipelines sorted by index',  function(done)  {
+    it('should return pipelines sorted by index', function (done) {
       const http = mockHttpClient();
       let result: IPipeline[] = null;
       const fromServer: IPipeline[] = [
@@ -102,7 +102,7 @@ describe('PipelineConfigService', () => {
         result = pipelines;
       });
       $scope.$digest();
-     // await http.flush();
+      // await http.flush();
       done();
       expect(result.map((r) => r.name)).toEqual(['first', 'second', 'third', 'last']);
     });
