@@ -15,8 +15,11 @@ module(CORE_PIPELINE_CONFIG_PIPELINECONFIG_CONTROLLER, [UIROUTER_ANGULARJS]).con
   '$state',
   '$stateParams',
   'app',
-  function ($scope, $state, $stateParams, app) {
+  '$location',
+  function ($scope, $state, $stateParams, app, $location) {
     this.application = app;
+    const fromIsdQuery = window.location.href.split('?').includes('fromISD=true');
+    $scope.fromISD = $location.$$search.fromISD || fromIsdQuery ? true : false;
     this.state = {
       pipelinesLoaded: false,
     };

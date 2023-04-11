@@ -94,6 +94,22 @@ export class ServerGroupWriter {
     });
   }
 
+  public forceRestartServerGroup(serverGroup: IServerGroup, appName: string, params: IServerGroupJob = {}) {
+    params.asgName = serverGroup.name;
+    params.serverGroupName = serverGroup.name;
+    params.moniker = serverGroup.moniker;
+    params.type = 'forceRestartServerGroup';
+    params.region = serverGroup.region;
+    params.credentials = serverGroup.account;
+    params.cloudProvider = serverGroup.type || serverGroup.provider;
+
+    return TaskExecutor.executeTask({
+      job: [params],
+      application: appName,
+      description: `forceRestartServerGroup: ${serverGroup.name}`,
+    });
+  }
+
   public enableServerGroup(
     serverGroup: IServerGroup,
     application: Application,

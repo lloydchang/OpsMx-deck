@@ -17,7 +17,7 @@ module(PIPELINE_STATES, [APPLICATION_STATE_PROVIDER]).config([
   (applicationStateProvider: ApplicationStateProvider, stateConfigProvider: StateConfigProvider) => {
     const pipelineConfig: INestedState = {
       name: 'pipelineConfig',
-      url: '/configure/:pipelineId?executionId&new',
+      url: '/configure/:pipelineId?executionId&new&fromISD',
       views: {
         pipelines: {
           templateUrl: require('../pipeline/config/pipelineConfig.html'),
@@ -69,7 +69,7 @@ module(PIPELINE_STATES, [APPLICATION_STATE_PROVIDER]).config([
 
     const executions: INestedState = {
       name: 'executions',
-      url: `?startManualExecution&${stateConfigProvider.paramsToQuery(filterModelConfig)}`,
+      url: `?startManualExecution&${stateConfigProvider.paramsToQuery(filterModelConfig)}&fromISD`,
       views: {
         pipelines: { component: Executions, $type: 'react' },
       },

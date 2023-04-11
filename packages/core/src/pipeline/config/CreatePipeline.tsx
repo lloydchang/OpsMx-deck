@@ -1,3 +1,4 @@
+/* eslint-disable @spinnaker/import-sort */
 import { get } from 'lodash';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
@@ -8,23 +9,67 @@ import type { IPipeline } from '../../domain';
 import { Tooltip } from '../../presentation/Tooltip';
 import { ReactInjector } from '../../reactShims';
 import { logger } from '../../utils';
+import { FilterSearch } from '../../cluster/filter/FilterSearch';
 
 export interface ICreatePipelineProps {
   application: Application;
 }
-
+export interface IFilterState {
+  searchString: string;
+  pipelineNames: IPipeline[];
+  strategyNames: IPipeline[];
+}
 export class CreatePipeline extends React.Component<ICreatePipelineProps> {
+  public pipelineConfigExists = get(this.props.application, 'pipelineConfigs.data', []);
+  public strategyConfigExists = get(this.props.application, 'strategyConfigs.data', []);
+  public state: IFilterState = {
+    searchString: '',
+    pipelineNames: this.pipelineConfigExists,
+    strategyNames: this.strategyConfigExists,
+  };
   private dropdownToggled = (): void => {
+    this.setState({
+      searchString: '',
+      pipelineNames: this.pipelineConfigExists,
+      strategyNames: this.strategyConfigExists,
+    });
     logger.log({ category: 'Pipelines', action: 'Configure (top level)' });
   };
 
+  private searchFieldUpdated = (event: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({ searchString: event.currentTarget.value }, () => this.refreshPipelineConfigs());
+  };
+
+  private get hasPipelineConfig() {
+    return this.pipelineConfigExists && this.pipelineConfigExists.length > 0;
+  }
+  private get hasStrategyConfig() {
+    return this.strategyConfigExists && this.strategyConfigExists.length > 0;
+  }
+
+  private refreshPipelineConfigs(): void {
+    const { searchString } = this.state;
+    let config = [];
+    if (searchString && searchString.length > 0) {
+      if (this.hasPipelineConfig) {
+        config = this.pipelineConfigExists.filter((pipelineName) =>
+          pipelineName.name.toLocaleLowerCase().includes(searchString.trim().toLocaleLowerCase()),
+        );
+        this.setState({ pipelineNames: config });
+      } else if (this.hasStrategyConfig) {
+        config = this.strategyConfigExists.filter((pipelineName) =>
+          pipelineName.name.toLocaleLowerCase().includes(searchString.trim().toLocaleLowerCase()),
+        );
+        this.setState({ strategyNames: config });
+      }
+    } else {
+      this.setState({ pipelineNames: this.pipelineConfigExists, strategyNames: this.strategyConfigExists });
+    }
+  }
   public render() {
-    const { application } = this.props;
-
-    const pipelineConfigs = get(application, 'pipelineConfigs.data', []);
-    const hasPipelineConfigs = pipelineConfigs.length > 0;
-
-    const hasStrategyConfigs = get(application, 'strategyConfigs.data', []).length > 0;
+    const { searchString, pipelineNames, strategyNames } = this.state;
+    const hasPipelineConfigs = this.hasPipelineConfig;
+    const hasStrategyConfigs = this.hasStrategyConfig;
     const header = !(hasPipelineConfigs || hasStrategyConfigs) ? (
       <li className="dropdown-header" style={{ marginTop: 0 }}>
         None yet, click <span style={{ marginLeft: '2px' }} className="glyphicon glyphicon-plus-sign" /> Create
@@ -59,13 +104,36 @@ export class CreatePipeline extends React.Component<ICreatePipelineProps> {
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdown-menu">
           {header}
-          {pipelineConfigs.map((pipeline: IPipeline) => (
-            <Pipeline key={pipeline.id} pipeline={pipeline} type="pipeline" />
-          ))}
-          {hasStrategyConfigs &&
-            application.strategyConfigs.data.map((pipeline: any) => (
-              <Pipeline key={pipeline.id} pipeline={pipeline} type="strategy" />
-            ))}
+          {(hasPipelineConfigs || hasStrategyConfigs) && (
+            <FilterSearch
+              value={searchString}
+              onBlur={this.searchFieldUpdated}
+              onSearchChange={this.searchFieldUpdated}
+            />
+          )}
+          {pipelineNames && (
+            <div style={{ overflow: 'auto', maxWidth: '300px', maxHeight: '300px' }}>
+              {pipelineNames &&
+                pipelineNames.map((pipeline: IPipeline) => (
+                  <Pipeline key={pipeline.id} pipeline={pipeline} type="pipeline" />
+                ))}
+            </div>
+          )}
+          {hasStrategyConfigs && (
+            <div style={{ overflow: 'auto', maxWidth: '300px', maxHeight: '300px' }}>
+              {hasStrategyConfigs &&
+                strategyNames &&
+                strategyNames.map((pipeline: any) => (
+                  <Pipeline key={pipeline.id} pipeline={pipeline} type="strategy" />
+                ))}
+            </div>
+          )}
+          {!hasStrategyConfigs && hasPipelineConfigs && !pipelineNames.length && (
+            <span style={{ padding: '10px' }}>No Pipelines Found</span>
+          )}
+          {!hasPipelineConfigs && hasStrategyConfigs && !strategyNames.length && (
+            <span style={{ padding: '10px' }}>No Deployment Strategies Found</span>
+          )}
         </Dropdown.Menu>
       </Dropdown>
     );
