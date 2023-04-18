@@ -171,7 +171,9 @@ export class Applications extends React.Component<{}, IApplicationsState> {
 
   private fixAccount(application: IApplicationSummary): IApplicationSummary {
     if (application.accounts) {
-      application.accounts = application.accounts.split(',').sort().join(', ');
+      if (!Array.isArray(application.accounts)) {
+        application.accounts = application.accounts.split(',').sort().join(', ');
+      }
     }
     return application;
   }
