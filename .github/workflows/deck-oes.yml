@@ -49,10 +49,11 @@ jobs:
                 sed -i 's/\r//' docker/setup-apache2.sh
                 sed -i 's/\r//' docker/run-apache2.sh
               
-               #./gradlew build --no-daemon -PskipTests 
+               ./gradlew build --no-daemon -PskipTests 
                    
-               ./gradlew --no-daemon -PenableCrossCompilerPlugin=true 
-                ls -ltra
+               #./gradlew --no-daemon -PenableCrossCompilerPlugin=true 
+               
+               ls -ltra
       - name: dockerBuildpush
         uses: docker/build-push-action@v2
         with:
