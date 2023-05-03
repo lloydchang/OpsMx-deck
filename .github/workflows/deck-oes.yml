@@ -42,8 +42,8 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.build_variables.outputs.VERSION }}
         run:  |
-               #cp docker/ubi8/setupapache2.sh docker/setup-apache2.sh
-               #cp docker/ubi8/runapache2.sh docker/run-apache2.sh
+               cp docker/ubi8/setupapache2.sh docker/setup-apache2.sh
+               cp docker/ubi8/runapache2.sh docker/run-apache2.sh
     
                # To remove Special characters
                 sed -i 's/\r//' docker/setup-apache2.sh
