@@ -514,7 +514,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                         selectedTemplate={this.state.command.template}
                       />
                     )}
-                    {!this.state.useManagedTemplate && (
+                    {!this.state.useManagedTemplate && !this.state.command.strategy && (
                       <div className="form-group clearfix">
                         {this.state.templates.length === 0 && <div className="col-md-3 sm-label-right">Source URL</div>}
                         <div className={this.state.templates.length ? 'col-md-7 col-md-offset-3' : 'col-md-7'}>
@@ -532,7 +532,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                       loadingError={this.state.loadingTemplateFromSourceError}
                       template={this.state.command.template || preselectedTemplate}
                     />
-                    {!preselectedTemplate && (
+                    {!preselectedTemplate && !this.state.command.strategy && (
                       <div className="form-group clearfix">
                         <div className="col-md-12">
                           <em>
