@@ -76,11 +76,11 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
 
   private clearFilters = (): void => {
     ExecutionFilterService.clearFilters();
-    this.updateExecutionGroups(true);
+    // this.updateExecutionGroups(true);
   };
 
   private forceUpdateExecutionGroups = (): void => {
-    this.updateExecutionGroups(true);
+    // this.updateExecutionGroups(true);
   };
 
   private updateExecutionGroups(reload?: boolean): void {
@@ -195,6 +195,10 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
       $state.go('.^');
     }
   }
+
+  public onLoad = ReactInjector.$uiRouter.transitionService.onBefore({}, () => {
+    this.updateExecutionGroups(true);
+  });
 
   public componentDidMount(): void {
     const { app } = this.props;
