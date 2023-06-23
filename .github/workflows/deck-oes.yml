@@ -4,7 +4,7 @@ on:
   workflow_call:
   push:
     branches:
-    - OES-1.30.x-master-adhoc
+    - OES-1.30.x-synch
  
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx6g -Xms6g
@@ -25,7 +25,6 @@ jobs:
         with:
           java-version: 11
           distribution: 'zulu'
-          cache: 'gradle'
       - name: Prepare build variables
         id: build_variables
         run: |
