@@ -7,6 +7,7 @@ import { DEFAULT_SKIP_WINDOW_TEXT } from './ExecutionWindowActions';
 import { ExecutionWindowDayPicker } from './ExecutionWindowDayPicker';
 import type { IStage } from '../../../../domain';
 import type { IJitter, IRestrictedExecutionWindow, ITimelineWindow, IWindow } from './executionWindowsConfig';
+import { HelpField } from '../../../../help/HelpField';
 import {
   CheckboxInput,
   NumberInput,
@@ -196,7 +197,13 @@ export const ExecutionWindows = (props: IExecutionWindowsConfigProps) => {
           {!isWindowExpression && (
             <div className="checkbox">
               <CheckboxInput
-                text={<strong> Restrict execution to specific time windows</strong>}
+                text={
+                  <strong>
+                    {' '}
+                    Restrict execution to specific time windows{' '}
+                    <HelpField content="When this option is enabled, the stage execution will be restricted for specific time period." />
+                  </strong>
+                }
                 value={props.restrictExecutionDuringTimeWindow}
                 onChange={() =>
                   props.updateStageField({
