@@ -3,11 +3,13 @@ import { flatMap, get, memoize } from 'lodash';
 import { DateTime } from 'luxon';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import type { SelectCallback } from 'react-bootstrap';
 import type { Subscription } from 'rxjs';
 
 import { DeletePipelineTemplateV2Modal } from './DeletePipelineTemplateV2Modal';
 import { PipelineTemplateReader } from '../PipelineTemplateReader';
 import { ShowPipelineTemplateJsonModal } from '../../actions/templateJson/ShowPipelineTemplateJsonModal';
+import { PaginationControls } from '../../../../application/search/PaginationControls';
 import { CreatePipelineFromTemplate } from './createPipelineFromTemplate';
 import type {
   IPipelineTemplateV2,
@@ -18,6 +20,7 @@ import { PipelineTemplateV2Service } from './pipelineTemplateV2.service';
 import { ReactSelectInput } from '../../../../presentation';
 import type { IStateChange } from '../../../../reactShims';
 import { ReactInjector } from '../../../../reactShims';
+import { Spinner } from '../../../../widgets';
 
 import './PipelineTemplatesV2.less';
 
@@ -31,6 +34,14 @@ export interface IPipelineTemplatesV2State {
   selectedTemplate: IPipelineTemplateV2;
   templateVersionSelections: IPipelineTemplateV2VersionSelections;
   templates: IPipelineTemplateV2Collections;
+  filteredTemplates?: Array<[string, IPipelineTemplateV2[]]>;
+  pagination: ITemplatePagination;
+}
+
+export interface ITemplatePagination {
+  currentPage: number;
+  itemsPerPage: number;
+  maxSize: number;
 }
 
 export const PipelineTemplatesV2Error = (props: { message: string }) => {
@@ -52,6 +63,7 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
     templates: {},
     viewTemplateVersion: ReactInjector.$stateParams.templateId,
     templateVersionSelections: {},
+    pagination: this.getDefaultPagination(),
   };
 
   public componentDidMount() {
@@ -65,7 +77,16 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
 
   private fetchTemplates() {
     PipelineTemplateReader.getV2PipelineTemplateList().then(
-      (templates) => this.setState({ templates, templateVersionSelections: {} }),
+      (templates) => {
+        this.setState({
+          templates,
+          templateVersionSelections: {},
+          filteredTemplates: this.sortTemplates(this.filterSearchResults(Object.entries(templates), '')).slice(
+            this.getActivePaginationDetails().start,
+            this.getActivePaginationDetails().end,
+          ),
+        });
+      },
       (err) => {
         const errorString = get(err, 'data.message', get(err, 'message', ''));
         if (errorString) {
@@ -115,9 +136,24 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
     ReactInjector.$state.go('home.pipeline-templates');
   };
 
+  private getActivePaginationDetails = () => {
+    const pagination = this.getDefaultPagination();
+    const { currentPage, itemsPerPage } = pagination;
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return { currentPage, pagination, start, end };
+  };
+
   private onSearchFieldChanged = (event: React.SyntheticEvent<HTMLInputElement>) => {
     const searchValue: string = get(event, 'target.value', '');
-    this.setState({ searchValue });
+    this.setState({
+      filteredTemplates: this.filterSearchResults(Object.entries(this.state.templates), searchValue).slice(
+        this.getActivePaginationDetails().start,
+        this.getActivePaginationDetails().end,
+      ),
+      searchValue: searchValue,
+      pagination: this.getActivePaginationDetails().pagination,
+    });
   };
 
   // Creates a cache key suitable for _.memoize
@@ -177,6 +213,14 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
       templateVersionSelections: { ...this.state.templateVersionSelections, [templateId]: e.target.value },
     });
 
+  private getDefaultPagination(): ITemplatePagination {
+    return {
+      currentPage: 1,
+      itemsPerPage: 12,
+      maxSize: 12,
+    };
+  }
+
   public render() {
     const {
       templates,
@@ -189,9 +233,33 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
     } = this.state;
     const detailsTemplate = viewTemplateVersion ? this.getViewTemplate() : null;
     const searchPerformed = searchValue.trim() !== '';
+    const pagination = this.getDefaultPagination();
+    const itemsPerPage = pagination.itemsPerPage;
     const filteredResults = this.sortTemplates(this.filterSearchResults(Object.entries(templates), searchValue));
     const resultsAvailable = filteredResults.length > 0;
+    const maxSize = filteredResults.length;
     const deleteTemplate = deleteTemplateVersion ? this.getDeleteTemplate() : null;
+
+    const changePage: SelectCallback = (page: any) => {
+      const lastPage = Math.floor(filteredResults.length / pagination.itemsPerPage) + 1;
+      const currentPage = Math.min(page, lastPage);
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const validatedPagination = { ...pagination, currentPage, maxSize } as ITemplatePagination;
+      this.setState({
+        filteredTemplates: this.sortTemplates(this.filterSearchResults(Object.entries(templates), searchValue)).slice(
+          start,
+          end,
+        ),
+        pagination: validatedPagination,
+      });
+    };
+
+    const LoadingSpinner = () => (
+      <div className="horizontal middle center" style={{ marginBottom: '250px', height: '150px' }}>
+        <Spinner size="medium" />
+      </div>
+    );
 
     return (
       <>
@@ -218,6 +286,7 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
             {searchPerformed && !resultsAvailable && (
               <h4 className="infrastructure-section__message">No matches found for '{searchValue}'</h4>
             )}
+            {!fetchError && !searchPerformed && !resultsAvailable && <LoadingSpinner />}
             {resultsAvailable && (
               <table className="table templates-table">
                 <thead>
@@ -235,7 +304,7 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredResults.map(([templateId, templateCollection]) => {
+                  {this.state.filteredTemplates.map(([templateId, templateCollection]) => {
                     const templateVersion =
                       templateVersionSelections[templateId] || getTemplateVersion(templateCollection[0]);
                     const currentTemplate = templateCollection.find(
@@ -280,6 +349,13 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
                   })}
                 </tbody>
               </table>
+            )}
+            {resultsAvailable && (
+              <PaginationControls
+                onPageChanged={changePage}
+                activePage={this.state.pagination.currentPage}
+                totalPages={Math.ceil(maxSize / itemsPerPage)}
+              />
             )}
           </div>
         </div>
