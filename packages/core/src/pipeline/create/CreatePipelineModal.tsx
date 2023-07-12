@@ -325,6 +325,8 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
         .then((template) => (this.state.command.template = template))
         .catch(() => this.setState({ loadingTemplateFromSourceError: true }))
         .finally(() => this.setState({ loadingTemplateFromSource: false }));
+    } else {
+      this.setState({ loadingTemplateFromSourceError: false });
     }
   }
 
@@ -340,7 +342,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
       !nameHasError &&
       !nameIsNotUnique &&
       this.state.command.name.length > 0 &&
-      (!this.state.useTemplate || !!this.state.command.template);
+      (!this.state.useTemplate || !!this.state.command.template || this.state.command.strategy);
 
     return (
       <Modal
@@ -527,11 +529,13 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                         </div>
                       </div>
                     )}
-                    <TemplateDescription
-                      loading={this.state.loadingTemplateFromSource}
-                      loadingError={this.state.loadingTemplateFromSourceError}
-                      template={this.state.command.template || preselectedTemplate}
-                    />
+                    {!this.state.command.strategy && (
+                      <TemplateDescription
+                        loading={this.state.loadingTemplateFromSource}
+                        loadingError={this.state.loadingTemplateFromSourceError}
+                        template={this.state.command.template || preselectedTemplate}
+                      />
+                    )}
                     {!preselectedTemplate && !this.state.command.strategy && (
                       <div className="form-group clearfix">
                         <div className="col-md-12">
