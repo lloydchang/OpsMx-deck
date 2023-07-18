@@ -72,11 +72,8 @@ class KubernetesServerGroupDetailsController implements IController {
       return arr1?.some((v) => arr2?.includes(v));
     };
     const isWriteEnabled = () => {
-      if (authenticatedUser.name !== applicationAttr.user) {
-        return (
-          isExist(applicationAttr.permissions?.WRITE, authenticatedUser.roles) ||
-          isExist(applicationAttr.permissions?.EXECUTE, authenticatedUser.roles)
-        );
+      if (authenticatedUser.name !== applicationAttr.user && applicationAttr.permissions) {
+        return isExist(applicationAttr.permissions?.WRITE, authenticatedUser.roles);
       } else {
         return true;
       }
