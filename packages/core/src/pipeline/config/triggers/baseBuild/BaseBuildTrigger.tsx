@@ -6,7 +6,7 @@ import { BuildServiceType, IgorService } from '../../../../ci/igor.service';
 import type { IBuildTrigger } from '../../../../domain';
 import { MapEditorInput } from '../../../../forms';
 import { HelpField } from '../../../../help';
-import { FormikFormField, TextInput, useLatestPromise } from '../../../../presentation';
+import { CheckboxInput, FormikFormField, TextInput, useLatestPromise } from '../../../../presentation';
 
 export interface IBaseBuildTriggerConfigProps {
   formik: FormikProps<IBuildTrigger>;
@@ -77,6 +77,17 @@ export function BaseBuildTrigger(buildTriggerProps: IBaseBuildTriggerConfigProps
           label="Property File"
           help={<HelpField id={`pipeline.config.${type}.trigger.propertyFile`} />}
           input={(props) => <TextInput {...props} />}
+        />
+      )}
+
+      {type == 'jenkins' && (
+        <FormikFormField
+          name="unstableBuild"
+          label="If build is unstable"
+          help={<HelpField id={`pipeline.config.${type}.trigger.unstableBuild`} />}
+          input={(props) => (
+            <CheckboxInput {...props} inputClassName="enable-trigger-checkbox" text="consider as a successful" />
+          )}
         />
       )}
 
