@@ -163,7 +163,7 @@ export class ShowPipelineTemplateJsonModal extends React.Component<
               </div>
             )}
           </form>
-          <JsonEditor value={templateStrWithSpacing} readOnly={true} />
+          <JsonEditor value={templateStrWithSpacing} readOnly={true} showPrintMargin={false} />
         </Modal.Body>
         <Modal.Footer>
           {saveError && <span className="show-pipeline-template-json-modal__save-error">{String(saveError)}</span>}
