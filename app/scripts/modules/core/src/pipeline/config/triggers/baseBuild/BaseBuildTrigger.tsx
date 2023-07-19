@@ -4,7 +4,7 @@ import React from 'react';
 import { BuildServiceType, IgorService } from 'core/ci/igor.service';
 import { IBuildTrigger } from 'core/domain';
 import { HelpField } from 'core/help';
-import { FormikFormField, TextInput, useLatestPromise } from 'core/presentation';
+import { CheckboxInput, FormikFormField, TextInput, useLatestPromise } from 'core/presentation';
 
 import { RefreshableReactSelectInput } from '../RefreshableReactSelectInput';
 
@@ -77,6 +77,18 @@ export function BaseBuildTrigger(buildTriggerProps: IBaseBuildTriggerConfigProps
         help={<HelpField id={`pipeline.config.${type}.trigger.propertyFile`} />}
         input={(props) => <TextInput {...props} />}
       />
+
+      {type == 'jenkins' && (
+        <FormikFormField
+          name="unstableBuild"
+          label="If build is unstable"
+          help={<HelpField id={`pipeline.config.${type}.trigger.unstableBuild`} />}
+          input={(props) => (
+            <CheckboxInput {...props} inputClassName="enable-trigger-checkbox" text="consider as a successful" />
+          )}
+        />
+      )}
+      
     </>
   );
 }

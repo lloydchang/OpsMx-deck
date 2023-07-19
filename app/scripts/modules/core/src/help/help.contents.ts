@@ -239,6 +239,8 @@ const helpContents: { [key: string]: string } = {
     '<p>Configures the cluster upon which this destroy operation will act. The <em>target</em> specifies what server group to resolve for the operation.</p>',
   'pipeline.config.jenkins.trigger.propertyFile':
     '<p>(Optional) Configures the name to the Jenkins artifact file used to pass in properties to later stages in the Spinnaker pipeline. The contents of this file will now be available as a map under the trigger and accessible via <em>trigger.properties</em>. See <a target="_blank" href="https://www.spinnaker.io/guides/user/pipeline-expressions/">Pipeline Expressions docs</a> for more information.</p>',
+  'pipeline.config.jenkins.trigger.unstableBuild':
+    '<p>If Jenkins reports the build status as UNSTABLE, Spinnaker will mark the build as SUCCEEDED and start execution of the pipeline.</p>',
   'pipeline.config.jenkins.propertyFile':
     '<p>(Optional) Configures the name to the Jenkins artifact file used to pass in properties to later stages in the Spinnaker pipeline. The contents of this file will now be available as a map under the stage context. See <a target="_blank" href="https://www.spinnaker.io/guides/user/pipeline-expressions/">Pipeline Expressions docs</a> for more information.</p>',
   'pipeline.config.travis.job.isFiltered':
