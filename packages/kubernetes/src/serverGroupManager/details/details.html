@@ -37,7 +37,7 @@
         </render-if-feature>
       </h3>
     </div>
-    <div class="actions">
+    <div class="actions" ng-if="ctrl.isEditEnabled()">
       <div class="dropdown" uib-dropdown dropdown-append-to-body>
         <button type="button" class="btn btn-sm btn-primary dropdown-toggle" uib-dropdown-toggle ng-hide="isDisabled">
           {{ctrl.serverGroupManager.kind | robotToHuman}} Actions <span class="caret"></span>

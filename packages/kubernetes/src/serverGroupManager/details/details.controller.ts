@@ -11,7 +11,7 @@ import type {
   IServerGroupManager,
   IServerGroupManagerStateParams,
 } from '@spinnaker/core';
-import { ClusterTargetBuilder, ManifestReader, NameUtils, SETTINGS } from '@spinnaker/core';
+import { AuthenticationService, ClusterTargetBuilder, ManifestReader, NameUtils, SETTINGS } from '@spinnaker/core';
 
 import type { IKubernetesServerGroupManager } from '../../interfaces';
 import { KubernetesManifestCommandBuilder } from '../../manifest/manifestCommandBuilder.service';
@@ -41,6 +41,22 @@ class KubernetesServerGroupManagerDetailsController implements IController {
       })
       .catch(() => this.autoClose());
     this.$scope.isDisabled = !SETTINGS.kubernetesAdHocInfraWritesEnabled;
+  }
+
+  public isEditEnabled(): boolean {
+    const authenticatedUser = AuthenticationService.getAuthenticatedUser();
+    const applicationAttr = this.app.attributes;
+    const isExist = (arr1: string[], arr2: string[]) => {
+      return arr1?.some((v) => arr2?.includes(v));
+    };
+    const isWriteEnabled = () => {
+      if (authenticatedUser.name !== applicationAttr.user && applicationAttr.permissions) {
+        return isExist(applicationAttr.permissions?.WRITE, authenticatedUser.roles);
+      } else {
+        return true;
+      }
+    };
+    return SETTINGS.kubernetesAdHocInfraEditEnabled ? isWriteEnabled() : true;
   }
 
   public pauseRolloutServerGroupManager(): void {
