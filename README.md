@@ -77,3 +77,7 @@ those existing conventions if you need an integration point that doesn't already
 
 Interested in sharing feedback on Spinnaker's UI or contributing to Deck?
 Please join us at the [Spinnaker UI SIG](https://github.com/spinnaker/governance/tree/master/sig-ui-ux)!
+
+
+
+4bfa0dbe4ac56ed0dcf65a2579a9496c5c0a807a | Yugandharkumar | Create commits-preserve.yml | 2023-08-09 
