@@ -66,5 +66,10 @@ Interested in sharing feedback on Spinnaker's UI or contributing to Deck?
 Please join us at the [Spinnaker UI SIG](https://github.com/spinnaker/governance/tree/master/sig-ui-ux)!
 
 
+$${\color{lightblue} Recent \space commits:}$$ 
+
+              CommitID                   |   Author      | Commit Message          | Commit Date
+----------------------------------------------------------------------------------------------------
+
 
 ce3cb4a05ed7cccab446f3d691bb29b2c718c206 | Yugandharkumar | Create commits-preserve.yml | 2023-08-09 
