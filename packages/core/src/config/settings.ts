@@ -151,6 +151,7 @@ export interface ISpinnakerSettings {
   kubernetesAdHocInfraWritesEnabled: boolean;
   kubernetesAdHocInfraEditEnabled: boolean;
   changelogUrl: string;
+  ecsAdHocInfraEditEnabled: boolean;
 }
 
 export const SETTINGS: ISpinnakerSettings = (window as any).spinnakerSettings || {};
@@ -160,6 +161,7 @@ SETTINGS.feature = SETTINGS.feature || {};
 SETTINGS.feature.roscoMode = SETTINGS.feature.roscoMode ?? true;
 SETTINGS.kubernetesAdHocInfraWritesEnabled = SETTINGS.kubernetesAdHocInfraWritesEnabled ?? true;
 SETTINGS.kubernetesAdHocInfraEditEnabled = SETTINGS.kubernetesAdHocInfraEditEnabled ?? false;
+SETTINGS.ecsAdHocInfraEditEnabled = SETTINGS.ecsAdHocInfraEditEnabled ?? false;
 SETTINGS.analytics = SETTINGS.analytics || {};
 SETTINGS.providers = SETTINGS.providers || {};
 SETTINGS.defaultTimeZone = SETTINGS.defaultTimeZone || 'America/Los_Angeles';
