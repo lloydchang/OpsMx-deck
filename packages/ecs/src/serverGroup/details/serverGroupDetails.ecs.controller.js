@@ -6,12 +6,14 @@ import { chain, filter, find, has, isEmpty } from 'lodash';
 
 import {
   AccountService,
+  AuthenticationService,
   ConfirmationModalService,
   FirewallLabels,
   OVERRIDE_REGISTRY,
   SERVER_GROUP_WRITER,
   ServerGroupReader,
   ServerGroupWarningMessageService,
+  SETTINGS,
   SubnetReader,
 } from '@spinnaker/core';
 
@@ -361,6 +363,22 @@ angular
         return AccountService.getAccountDetails(serverGroup.account).then((details) => {
           serverGroup.accountDetails = details;
         });
+      };
+
+      this.isEditEnabled = () => {
+        const authenticatedUser = AuthenticationService.getAuthenticatedUser();
+        const applicationAttr = this.application.attributes;
+        const isExist = (arr1, arr2) => {
+          return arr1?.some((v) => arr2?.includes(v));
+        };
+        const isWriteEnabled = () => {
+          if (authenticatedUser.name !== applicationAttr.user && applicationAttr.permissions) {
+            return isExist(applicationAttr.permissions?.WRITE, authenticatedUser.roles);
+          } else {
+            return true;
+          }
+        };
+        return SETTINGS.ecsAdHocInfraEditEnabled ? isWriteEnabled() : true;
       };
     },
   ]);
