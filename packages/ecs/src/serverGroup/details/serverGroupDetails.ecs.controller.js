@@ -366,19 +366,7 @@ angular
       };
 
       this.isEditEnabled = () => {
-        const authenticatedUser = AuthenticationService.getAuthenticatedUser();
-        const applicationAttr = this.application.attributes;
-        const isExist = (arr1, arr2) => {
-          return arr1?.some((v) => arr2?.includes(v));
-        };
-        const isWriteEnabled = () => {
-          if (authenticatedUser.name !== applicationAttr.user && applicationAttr.permissions) {
-            return isExist(applicationAttr.permissions?.WRITE, authenticatedUser.roles);
-          } else {
-            return true;
-          }
-        };
-        return SETTINGS.ecsAdHocInfraEditEnabled ? isWriteEnabled() : true;
+        return SETTINGS.adHocInfraEditEnabled;
       };
     },
   ]);
