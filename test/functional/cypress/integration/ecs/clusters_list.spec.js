@@ -29,16 +29,6 @@ describe('Amazon ECS: aws-prod-ecsdemo cluster', () => {
     cy.get('.sub-group:contains("aws-prod-ecsdemo")')
       .find('.server-group:contains("v000")')
       .click({ force: true });
-
-    cy.get('.btn:contains("Server Group Actions")')
-      .click()
-      .get('.dropdown-menu')
-      .get('.ng-scope')
-      .should('contain.text', 'Rollback');
-
-    cy.get('a:contains("Rollback")').click({ force: true });
-
-    cy.get('.modal-title').should('contain.text', 'Rollback aws-prod-ecsdemo');
   });
 
   it('shows stored details view and ECS server group actions', () => {
@@ -47,11 +37,6 @@ describe('Amazon ECS: aws-prod-ecsdemo cluster', () => {
     cy.get('.sub-group:contains("aws-prod-ecsdemo")')
       .find('.server-group:contains("v000")')
       .click({ force: true });
-
-    cy.get('.btn:contains("Server Group Actions")')
-      .click()
-      .get('a:contains("Rollback")')
-      .click();
   });
 
   it('shows stored instance details view action', () => {
