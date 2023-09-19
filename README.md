@@ -94,3 +94,6 @@ a6cac1887831bbe14125da4bafe46c554f6c7fd0 | Yugandharkumar | Create commits-prese
 
 
 4f5d5df2d9efed946b0e44a565d3f2f1d89f9d0a | Rajinderpal Singh Siddhu | ECS changes related to Disable server group tab (#79) | 2023-09-14 
+
+
+f30f85b4a9ae363a82ad3d805ebd536c992c11e5 | Rajinderpal Singh Siddhu | AWS and ECS changes according to new requirement And fixed build related issue (#83) | 2023-09-19 
