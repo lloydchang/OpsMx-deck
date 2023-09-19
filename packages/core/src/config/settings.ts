@@ -139,6 +139,7 @@ export interface ISpinnakerSettings {
   triggerTypes: string[];
   useClassicFirewallLabels: boolean;
   kubernetesAdHocInfraWritesEnabled: boolean;
+  adHocInfraEditEnabled: boolean;
   changelogUrl: string;
 }
 
@@ -151,6 +152,7 @@ SETTINGS.analytics = SETTINGS.analytics || {};
 SETTINGS.providers = SETTINGS.providers || {};
 SETTINGS.defaultTimeZone = SETTINGS.defaultTimeZone || 'America/Los_Angeles';
 SETTINGS.dockerInsights = SETTINGS.dockerInsights || { enabled: false, url: '' };
+SETTINGS.adHocInfraEditEnabled = SETTINGS.adHocInfraEditEnabled ?? true;
 SETTINGS.changelogUrl =
   SETTINGS.changelogUrl || 'https://www.spinnaker.io/community/releases/versions/:version-changelog';
 SETTINGS.managedDelivery = SETTINGS.managedDelivery || {

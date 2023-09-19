@@ -289,7 +289,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
     const entityTagTargets: IOwnerOption[] = ClusterTargetBuilder.buildClusterTargets(serverGroup);
 
     return (
-      <Dropdown className="dropdown" id="server-group-actions-dropdown">
+      SETTINGS.adHocInfraEditEnabled ? (<Dropdown className="dropdown" id="server-group-actions-dropdown">
         <Dropdown.Toggle className="btn btn-sm btn-primary dropdown-toggle">Server Group Actions</Dropdown.Toggle>
         <Dropdown.Menu className="dropdown-menu">
           {this.isRollbackEnabled() && (
@@ -336,7 +336,7 @@ export class AmazonServerGroupActions extends React.Component<IAmazonServerGroup
             />
           )}
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown>):null
     );
   }
 }

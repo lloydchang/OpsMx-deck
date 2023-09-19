@@ -12,6 +12,7 @@ import {
   SERVER_GROUP_WRITER,
   ServerGroupReader,
   ServerGroupWarningMessageService,
+  SETTINGS,
   SubnetReader,
 } from '@spinnaker/core';
 
@@ -312,6 +313,8 @@ angular
           },
         });
       };
+
+      this.isEditEnabled = () =>  SETTINGS.adHocInfraEditEnabled;
 
       this.resizeServerGroup = () => {
         $uibModal.open({

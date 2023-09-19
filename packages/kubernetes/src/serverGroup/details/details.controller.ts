@@ -196,6 +196,10 @@ class KubernetesServerGroupDetailsController implements IController {
       });
   }
 
+  public isEditEnabled () {
+    return SETTINGS.adHocInfraEditEnabled;
+  }  
+
   private configureEntityTagTargets(): IOwnerOption[] {
     return ClusterTargetBuilder.buildClusterTargets(this.serverGroup);
   }
