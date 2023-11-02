@@ -114,10 +114,11 @@ export class PipelineConfigService {
 
   public static savePipeline(toSave: IPipeline): PromiseLike<void> {
     const pipeline = cloneDeep(toSave);
-    const applicationName = pipeline['application'];
+    //  const applicationName = pipeline['application'];
     delete pipeline.isNew;
     pipeline.name = pipeline.name.trim();
-    return this.getAppDetailsbyID(pipeline.name, pipeline, applicationName);
+    //    return this.getAppDetailsbyID(pipeline.name, pipeline, applicationName);
+    return this.savePipelineStageConfig(pipeline);
   }
 
   public static reorderPipelines(
