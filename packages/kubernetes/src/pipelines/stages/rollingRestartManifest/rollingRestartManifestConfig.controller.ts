@@ -18,7 +18,7 @@ export class KubernetesV2RollingRestartManifestConfigCtrl implements IController
       };
       defaults(this.$scope.stage, defaultSelection);
       const defaultOptions: any = {
-        replicas: null,
+        // replicas: null,
         app: this.application.name,
       };
       defaults(this.$scope.stage, defaultOptions);
