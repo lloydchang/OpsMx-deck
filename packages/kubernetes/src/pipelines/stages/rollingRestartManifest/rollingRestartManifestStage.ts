@@ -27,7 +27,8 @@ module(KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE, [KUBERNETES_ROLLING_RESTART_MA
       validators: [
         { type: 'requiredField', fieldName: 'location', fieldLabel: 'Namespace' },
         { type: 'requiredField', fieldName: 'account', fieldLabel: 'Account' },
-        { type: 'requiredField', fieldName: 'replicas', fieldLabel: 'Replicas' },
+        { type: 'requiredField', fieldName: 'manifestName', fieldLabel: 'Kind' },
+        { type: 'requiredField', fieldName: 'manifestName', fieldLabel: 'Name' },
       ],
     });
   })
