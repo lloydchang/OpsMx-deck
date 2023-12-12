@@ -32,6 +32,7 @@ import { KUBERNETES_MANIFEST_STATUS } from './manifest/status/status.component';
 import { ManifestWizard } from './manifest/wizard/ManifestWizard';
 import './pipelines/stages';
 import { KUBERNETES_FIND_ARTIFACTS_FROM_RESOURCE_STAGE } from './pipelines/stages/findArtifactsFromResource/findArtifactsFromResourceStage';
+import { KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE } from './pipelines/stages/rollingRestartManifest/rollingRestartManifestStage';
 import { KUBERNETES_SCALE_MANIFEST_STAGE } from './pipelines/stages/scaleManifest/scaleManifestStage';
 import { KUBERNETES_DISABLE_MANIFEST_STAGE } from './pipelines/stages/traffic/disableManifest.stage';
 import { KUBERNETES_ENABLE_MANIFEST_STAGE } from './pipelines/stages/traffic/enableManifest.stage';
@@ -90,6 +91,7 @@ const requires = [
   KUBERNETES_DISABLE_MANIFEST_STAGE,
   STAGE_ARTIFACT_SELECTOR_COMPONENT_REACT,
   KUBERNETES_ROLLING_RESTART,
+  KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE,
 ];
 
 if (SETTINGS.feature.kubernetesRawResources) {
