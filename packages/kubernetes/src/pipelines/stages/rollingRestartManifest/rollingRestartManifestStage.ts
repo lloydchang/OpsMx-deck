@@ -4,14 +4,13 @@ import type { IStage } from '@spinnaker/core';
 import { ExecutionDetailsTasks, Registry } from '@spinnaker/core';
 
 import { manifestExecutionDetails } from '../ManifestExecutionDetails';
-import { KUBERNETES_ROLLING_RESTART_MANIFEST_SETTINGS_FORM } from '../../../manifest/rollingRestart/rollingRestartSettingsForm.component';
 import { KubernetesV2RollingRestartManifestConfigCtrl } from './rollingRestartManifestConfig.controller';
 
 export const KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE =
   'spinnaker.kubernetes.v2.pipeline.stage.rollingRestartManifestStage';
 const STAGE_KEY = 'rollingRestartManifest';
 
-module(KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE, [KUBERNETES_ROLLING_RESTART_MANIFEST_SETTINGS_FORM])
+module(KUBERNETES_ROLLING_RESTART_MANIFEST_STAGE, [])
   .config(() => {
     Registry.pipeline.registerStage({
       label: 'Rolling Restart (Manifest)',
