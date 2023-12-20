@@ -52,25 +52,26 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
     const { manifest } = this.state;
     const { externalLink, podNamesProviders, location, account } = this.props;
     // prefer links to external logging platforms
-    if (!isEmpty(manifest) && externalLink) {
-      return (
-        <a target="_blank" href={this.renderExternalLink(externalLink, manifest)}>
-          Console Output (External)
-        </a>
-      );
-    }
-
+    // if (!isEmpty(manifest) && externalLink) {
     return (
-      <>
-        {location && (
-          <JobManifestPodLogs
-            account={account}
-            location={location}
-            podNamesProviders={podNamesProviders}
-            linkName="Console Output"
-          />
-        )}
-      </>
+      <a target="_blank" href={this.renderExternalLink(externalLink, manifest)}>
+        Console Output (External) Manifest file: {manifest}
+        link : {externalLink}
+      </a>
     );
+    // }
+
+    // return (
+    //   <>
+    //     {location && (
+    //       <JobManifestPodLogs
+    //         account={account}
+    //         location={location}
+    //         podNamesProviders={podNamesProviders}
+    //         linkName="Console Output"
+    //       />
+    //     )}
+    //   </>
+    // );
   }
 }
