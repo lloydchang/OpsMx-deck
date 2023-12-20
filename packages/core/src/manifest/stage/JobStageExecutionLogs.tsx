@@ -55,7 +55,7 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
     if (!isEmpty(manifest) && externalLink) {
       return (
         <a target="_blank" href={this.renderExternalLink(externalLink, manifest)}>
-          Console Output (External), Manifest file: {manifest}, link : {externalLink}
+          Console Output (External)
         </a>
       );
     }
