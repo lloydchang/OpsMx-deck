@@ -1,9 +1,9 @@
-import { isEmpty, template } from 'lodash';
+import { template } from 'lodash';
 import React from 'react';
 import { from as observableFrom, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { JobManifestPodLogs } from './JobManifestPodLogs';
+// import { JobManifestPodLogs } from './JobManifestPodLogs';
 import { ManifestReader } from '../ManifestReader';
 import type { IPodNameProvider } from '../PodNameProvider';
 import type { Application } from '../../application';
@@ -50,7 +50,7 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
 
   public render() {
     const { manifest } = this.state;
-    const { externalLink, podNamesProviders, location, account } = this.props;
+    const { externalLink } = this.props;
     // prefer links to external logging platforms
     // if (!isEmpty(manifest) && externalLink) {
     return (
