@@ -1,9 +1,9 @@
-import { template } from 'lodash';
+import { isEmpty, template } from 'lodash';
 import React from 'react';
 import { from as observableFrom, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-// import { JobManifestPodLogs } from './JobManifestPodLogs';
+import { JobManifestPodLogs } from './JobManifestPodLogs';
 import { ManifestReader } from '../ManifestReader';
 import type { IPodNameProvider } from '../PodNameProvider';
 import type { Application } from '../../application';
@@ -50,28 +50,27 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
 
   public render() {
     const { manifest } = this.state;
-    const { externalLink } = this.props;
+    const { externalLink, podNamesProviders, location, account } = this.props;
     // prefer links to external logging platforms
-    // if (!isEmpty(manifest) && externalLink) {
-    return (
-      <a target="_blank" href={this.renderExternalLink(externalLink, manifest)}>
-        Console Output (External) Manifest file: {manifest}
-        link : {externalLink}
-      </a>
-    );
-    // }
+    if (!isEmpty(manifest) && externalLink) {
+      return (
+        <a target="_blank" href={this.renderExternalLink(externalLink, manifest)}>
+          Console Output (External), Manifest file: {manifest}, link : {externalLink}
+        </a>
+      );
+    }
 
-    // return (
-    //   <>
-    //     {location && (
-    //       <JobManifestPodLogs
-    //         account={account}
-    //         location={location}
-    //         podNamesProviders={podNamesProviders}
-    //         linkName="Console Output"
-    //       />
-    //     )}
-    //   </>
-    // );
+    return (
+      <>
+        {location && (
+          <JobManifestPodLogs
+            account={account}
+            location={location}
+            podNamesProviders={podNamesProviders}
+            linkName="Console Output"
+          />
+        )}
+      </>
+    );
   }
 }
