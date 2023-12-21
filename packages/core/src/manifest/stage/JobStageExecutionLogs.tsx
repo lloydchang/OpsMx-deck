@@ -40,6 +40,13 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
   }
 
   private renderExternalLink(link: string, manifest: IManifest): string {
+    alert(`link, ${link}`);
+    alert(`manifest name, ${manifest.name}`);
+    alert(`manifest account, ${manifest.account}`);
+    alert(`manifest cloudProvider, ${manifest.cloudProvider}`);
+    alert(`manifest manifest, ${manifest.manifest}`);
+    alert(`manifest status, ${manifest.status}`);
+    alert(`manifest artifacts, ${manifest.artifacts}`);
     if (!link.includes('{{')) {
       return link;
     }
@@ -50,9 +57,7 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
 
   public render() {
     const { manifest } = this.state;
-    alert(manifest);
     const { externalLink, podNamesProviders, location, account } = this.props;
-    alert(externalLink);
     // prefer links to external logging platforms
     if (externalLink) {
       return (
