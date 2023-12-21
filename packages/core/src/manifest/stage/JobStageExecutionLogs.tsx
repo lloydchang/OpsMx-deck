@@ -53,6 +53,7 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
     const { manifest } = this.state;
     alert(manifest);
     const { externalLink } = this.props;
+    alert(externalLink);
     // prefer links to external logging platforms
     // if (!isEmpty(manifest) && externalLink) {
     return (
