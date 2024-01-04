@@ -236,6 +236,7 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
     const pagination = this.getDefaultPagination();
     const itemsPerPage = pagination.itemsPerPage;
     const filteredResults = this.sortTemplates(this.filterSearchResults(Object.entries(templates), searchValue));
+    // debugger
     const resultsAvailable = filteredResults.length > 0;
     const maxSize = filteredResults.length;
     const deleteTemplate = deleteTemplateVersion ? this.getDeleteTemplate() : null;
@@ -312,10 +313,34 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
                     );
                     const { metadata } = currentTemplate;
 
+                    const arrayOfObjects = Object.keys(metadata).map((key) => ({
+                      [key]: metadata[key],
+                    }));
+                    let isNameExists = false;
+                    const data = arrayOfObjects.find((item) => item.name);
+                    if (data.name.includes(searchValue)) {
+                      isNameExists = true;
+                    }
+                    const newdata = arrayOfObjects.find((item) => item.owner);
+                    let isownerDataExists = false;
+                    if (newdata.owner.includes(searchValue)) {
+                      isownerDataExists = true;
+                    }
+
                     return (
                       <tr key={templateVersion}>
-                        <td className="templates-table__template-name">{metadata.name || '-'}</td>
-                        <td>{metadata.owner || '-'}</td>
+                        <td className="templates-table__template-name">
+                          <span className={searchPerformed && resultsAvailable && isNameExists ? 'addBgColor' : ''}>
+                            {metadata.name || '-'}
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            className={searchPerformed && resultsAvailable && isownerDataExists ? 'addBgColor' : ''}
+                          >
+                            {metadata.owner || '-'}
+                          </span>
+                        </td>
                         <td>{this.getUpdateTimeForTemplate(currentTemplate) || '-'}</td>
                         <td className="templates-table__template-versions">
                           <ReactSelectInput

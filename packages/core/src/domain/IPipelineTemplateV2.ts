@@ -15,6 +15,7 @@ export interface IPipelineTemplateV2 {
 }
 
 interface IPipelineTemplateMetadataV2 {
+  [key: string]: any;
   description: string;
   name: string;
   owner: string;
