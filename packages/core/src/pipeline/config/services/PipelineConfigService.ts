@@ -40,68 +40,6 @@ export class PipelineConfigService {
       });
   }
 
-  public static getAppDetailsbyID(pipelineName: string, pipeline: any, appName: any): PromiseLike<void> {
-    let appId = '';
-    return REST('platformservice/v2/applications/name/' + appName)
-      .get()
-      .then((results) => {
-        appId = results['applicationId'];
-        if (appId) {
-          return REST('platformservice/v4/applications/' + appId)
-            .get()
-            .then(function (results) {
-              if (results['services']?.length > 0) {
-                const index = results['services'].map((i: { serviceName: any }) => i.serviceName).indexOf(pipelineName);
-                const pipelines = results.services[index]?.pipelines;
-                const pipelineIndex =
-                  pipelines && pipelines.findIndex((pipeline: any) => pipeline.pipelineName == pipelineName);
-
-                if (Array.isArray(pipeline.stages)) {
-                  pipeline.stages.forEach((stage: any) => {
-                    delete stage.isNew;
-                    if (!stage.name) {
-                      delete stage.name;
-                    }
-                    if (stage['applicationId']) {
-                      stage['applicationId'] = appId;
-                    }
-                    if (stage['pipelineId'] && pipelineIndex >= 0 && pipelines[pipelineIndex]?.pipelineId) {
-                      stage.pipelineId = pipelines[pipelineIndex].pipelineId;
-                    }
-                    if (stage['serviceId'] && results['services'][index]?.serviceId) {
-                      stage.serviceId = results['services'][index].serviceId;
-                    }
-                  });
-                }
-              }
-              if (PipelineTemplateV2Service.isV2PipelineConfig(pipeline)) {
-                pipeline = PipelineTemplateV2Service.filterInheritedConfig(pipeline) as IPipeline;
-              }
-              const endpoint = pipeline.strategy ? 'strategies' : 'pipelines';
-              return REST(endpoint).query({ staleCheck: true }).post(pipeline);
-            });
-        } else {
-          return this.savePipelineStageConfig(pipeline);
-        }
-      });
-  }
-
-  public static savePipelineStageConfig(pipeline: any): PromiseLike<void> {
-    if (Array.isArray(pipeline.stages)) {
-      pipeline.stages.forEach(function (stage: any) {
-        delete stage.isNew;
-        if (!stage.name) {
-          delete stage.name;
-        }
-      });
-    }
-    if (PipelineTemplateV2Service.isV2PipelineConfig(pipeline)) {
-      pipeline = PipelineTemplateV2Service.filterInheritedConfig(pipeline) as IPipeline;
-    }
-    const endpoint = pipeline.strategy ? 'strategies' : 'pipelines';
-    return REST(endpoint).query({ staleCheck: true }).post(pipeline);
-  }
-
   public static getHistory(id: string, isStrategy: boolean, count = 20): PromiseLike<IPipeline[]> {
     const endpoint = isStrategy ? 'strategyConfigs' : 'pipelineConfigs';
     return REST(endpoint).path(id, 'history').query({ limit: count }).get();
@@ -113,12 +51,23 @@ export class PipelineConfigService {
   }
 
   public static savePipeline(toSave: IPipeline): PromiseLike<void> {
-    const pipeline = cloneDeep(toSave);
-    //  const applicationName = pipeline['application'];
+    let pipeline = cloneDeep(toSave);
     delete pipeline.isNew;
     pipeline.name = pipeline.name.trim();
-    //    return this.getAppDetailsbyID(pipeline.name, pipeline, applicationName);
-    return this.savePipelineStageConfig(pipeline);
+    if (Array.isArray(pipeline.stages)) {
+      pipeline.stages.forEach(function (stage) {
+        delete stage.isNew;
+        if (!stage.name) {
+          delete stage.name;
+        }
+      });
+    }
+    if (PipelineTemplateV2Service.isV2PipelineConfig(pipeline)) {
+      pipeline = PipelineTemplateV2Service.filterInheritedConfig(pipeline) as IPipeline;
+    }
+
+    const endpoint = pipeline.strategy ? 'strategies' : 'pipelines';
+    return REST(endpoint).query({ staleCheck: true }).post(pipeline);
   }
 
   public static reorderPipelines(

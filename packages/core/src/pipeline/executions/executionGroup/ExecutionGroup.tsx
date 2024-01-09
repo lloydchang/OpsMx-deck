@@ -1,4 +1,3 @@
-/* eslint-disable @spinnaker/import-sort */
 import classnames from 'classnames';
 import { flatten, uniq, without } from 'lodash';
 import React from 'react';
@@ -11,7 +10,6 @@ import { AccountTag } from '../../../account';
 import type { Application } from '../../../application/application.model';
 import { CollapsibleSectionStateCache } from '../../../cache';
 import { SETTINGS } from '../../../config/settings';
-import { ConfirmationModalService } from '../../../confirmationModal';
 import { PipelineTemplateReader, PipelineTemplateV2Service } from '../../config/templates';
 import type {
   IExecution,
@@ -142,9 +140,6 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
         this.setState({ poll: monitor });
         return monitor.promise;
       })
-      .catch((exception) => {
-        throw exception ? exception : null;
-      })
       .finally(() => {
         this.setState({ triggeringExecution: false });
       });
@@ -170,23 +165,7 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
           trigger: trigger,
           currentlyRunningExecutions: this.props.group.runningExecutions,
         })
-          .then((command) => {
-            this.startPipeline(command)
-              .then((resp) => {
-                /*eslint-disable no-console*/ console.log(resp);
-              })
-              .catch((exception) => {
-                /*eslint-disable no-console*/ console.log(exception);
-                ConfirmationModalService.confirm({
-                  header: `Run Pipeline`,
-                  buttonText: 'Okay',
-                  body: `<div class="alert alert-danger">
-                <p>Could not run pipeline.</p>
-                <p><b>Reason:</b> Access denied to pipeline ${command.pipelineName} - required authorization: EXECUTE</p>
-                </div>`,
-                });
-              });
-          })
+          .then((command) => this.startPipeline(command))
           .catch(() => {}),
       );
   }
@@ -384,12 +363,10 @@ export class ExecutionGroup extends React.PureComponent<IExecutionGroupProps, IE
                   <div className={groupActionsClassName}>
                     {pipelineConfig && <TriggersTag pipeline={pipelineConfig} />}
                     {pipelineConfig && <NextRunTag pipeline={pipelineConfig} />}
-
                     <ExecutionAction handleClick={this.handleConfigureClicked}>
                       <span className="glyphicon glyphicon-cog" />
                       {' Configure'}
                     </ExecutionAction>
-
                     {pipelineConfig && (
                       <ExecutionAction
                         handleClick={this.handleTriggerClicked}

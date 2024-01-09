@@ -1,4 +1,3 @@
-/* eslint-disable @spinnaker/import-sort */
 import { UISref } from '@uirouter/react';
 import type { IHttpPromiseCallbackArg } from 'angular';
 import { cloneDeep, get, uniqBy } from 'lodash';
@@ -24,7 +23,6 @@ import { Overridable } from '../../overrideRegistry';
 import { Spinner } from '../../widgets/spinners/Spinner';
 
 import './createPipelineModal.less';
-import { UIRouterContext } from '@uirouter/react-hybrid';
 
 export interface ICreatePipelineModalState {
   submitting: boolean;
@@ -64,7 +62,6 @@ export interface ICreatePipelineModalProps {
 }
 
 @Overridable('core.pipeline.CreatePipelineModal')
-@UIRouterContext
 export class CreatePipelineModal extends React.Component<ICreatePipelineModalProps, ICreatePipelineModalState> {
   constructor(props: ICreatePipelineModalProps) {
     super(props);
@@ -188,7 +185,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
       const configs: IPipeline[] = config.strategy
         ? application.strategyConfigs.data
         : application.pipelineConfigs.data;
-      const newPipeline = configs.find((_config) => _config.name === config.name.trim());
+      const newPipeline = configs.find((_config) => _config.name === config.name);
 
       if (!newPipeline) {
         $log.warn('Could not find new pipeline after save succeeded.');
@@ -325,8 +322,6 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
         .then((template) => (this.state.command.template = template))
         .catch(() => this.setState({ loadingTemplateFromSourceError: true }))
         .finally(() => this.setState({ loadingTemplateFromSource: false }));
-    } else {
-      this.setState({ loadingTemplateFromSourceError: false });
     }
   }
 
@@ -342,7 +337,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
       !nameHasError &&
       !nameIsNotUnique &&
       this.state.command.name.length > 0 &&
-      (!this.state.useTemplate || !!this.state.command.template || this.state.command.strategy);
+      (!this.state.useTemplate || !!this.state.command.template);
 
     return (
       <Modal
@@ -516,7 +511,7 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                         selectedTemplate={this.state.command.template}
                       />
                     )}
-                    {!this.state.useManagedTemplate && !this.state.command.strategy && (
+                    {!this.state.useManagedTemplate && (
                       <div className="form-group clearfix">
                         {this.state.templates.length === 0 && <div className="col-md-3 sm-label-right">Source URL</div>}
                         <div className={this.state.templates.length ? 'col-md-7 col-md-offset-3' : 'col-md-7'}>
@@ -529,14 +524,12 @@ export class CreatePipelineModal extends React.Component<ICreatePipelineModalPro
                         </div>
                       </div>
                     )}
-                    {!this.state.command.strategy && (
-                      <TemplateDescription
-                        loading={this.state.loadingTemplateFromSource}
-                        loadingError={this.state.loadingTemplateFromSourceError}
-                        template={this.state.command.template || preselectedTemplate}
-                      />
-                    )}
-                    {!preselectedTemplate && !this.state.command.strategy && (
+                    <TemplateDescription
+                      loading={this.state.loadingTemplateFromSource}
+                      loadingError={this.state.loadingTemplateFromSourceError}
+                      template={this.state.command.template || preselectedTemplate}
+                    />
+                    {!preselectedTemplate && (
                       <div className="form-group clearfix">
                         <div className="col-md-12">
                           <em>

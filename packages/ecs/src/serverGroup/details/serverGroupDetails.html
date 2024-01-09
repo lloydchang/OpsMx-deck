@@ -34,7 +34,11 @@
       </h3>
     </div>
     <div>
-      <div class="actions" ng-class="{ insights: ctrl.serverGroup.insightActions.length > 0 }">
+      <div
+        class="actions"
+        ng-class="{ insights: ctrl.serverGroup.insightActions.length > 0 }"
+        ng-if="ctrl.isEditEnabled()"
+      >
         <div class="dropdown" uib-dropdown dropdown-append-to-body>
           <button type="button" class="btn btn-sm btn-primary dropdown-toggle" uib-dropdown-toggle>
             Server Group Actions <span class="caret"></span>
@@ -59,9 +63,6 @@
               </a>
             </li>
             <li><a href ng-click="ctrl.destroyServerGroup()">Destroy</a></li>
-            <li>
-              <a href ng-if=" !ctrl.serverGroup.isDisabled" ng-click="ctrl.forceRestartServerGroup()">Force Restart</a>
-            </li>
             <li><migrator application="ctrl.application" server-group="ctrl.serverGroup"></migrator></li>
             <render-if-feature feature="entityTags">
               <add-entity-tag-links

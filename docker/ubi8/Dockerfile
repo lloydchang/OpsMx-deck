@@ -1,12 +1,14 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.3
+FROM quay.io/opsmxpublic/ubifips:8.7
 MAINTAINER sig-platform@spinnaker.io
 LABEL name='deck'
 LABEL maintainer='info@opsmx.io'
+LABEL release=2
+LABEL version='1.21.1'
 LABEL summary='Red Hat certified Open Enterprise Spinnaker ubi8 container image for deck'
 LABEL description='Certified Open Enterprise Spinnaker is an Enterprise grade, Red Hat certified and OpsMx supported release of the popular and critically acclaimed Continuous Delivery platform Spinnaker'
 LABEL vendor='OpsMx'
 WORKDIR /opt/deck
-RUN yum -y install java-11-openjdk-headless.x86_64 wget vim  net-tools curl nettle tzdata-java
+RUN yum -y install java-17-openjdk-devel wget vim  net-tools curl nettle
 RUN yum -y update
 COPY docker        /opt/deck/docker
 COPY docker/run-apache2.sh docker/run-apache2.sh
@@ -24,5 +26,8 @@ RUN chgrp -Rf root /var/lock && chmod -Rf g+w /var/lock
 RUN chgrp -Rf root /run/lock && chmod -Rf g+w /run/lock
 RUN chown -Rf apache:root /var/run/httpd && chmod -Rf 775 /var/run/httpd
 RUN chmod g+w /etc/passwd
+RUN chown apache /opt/deck/html/settings-local.js
+
 USER apache
+
 CMD docker/run-apache2.sh

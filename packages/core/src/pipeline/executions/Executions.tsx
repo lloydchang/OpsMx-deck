@@ -76,11 +76,11 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
 
   private clearFilters = (): void => {
     ExecutionFilterService.clearFilters();
-    // this.updateExecutionGroups(true);
+    this.updateExecutionGroups(true);
   };
 
   private forceUpdateExecutionGroups = (): void => {
-    // this.updateExecutionGroups(true);
+    this.updateExecutionGroups(true);
   };
 
   private updateExecutionGroups(reload?: boolean): void {
@@ -196,10 +196,6 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
     }
   }
 
-  public onLoad = ReactInjector.$uiRouter.transitionService.onBefore({}, () => {
-    this.updateExecutionGroups(true);
-  });
-
   public componentDidMount(): void {
     const { app } = this.props;
     if (ExecutionState.filterModel.mostRecentApplication !== app.name) {
@@ -296,7 +292,6 @@ export class Executions extends React.Component<IExecutionsProps, IExecutionsSta
 
   public render(): React.ReactElement<Executions> {
     const { app } = this.props;
-
     const { filtersExpanded, loading, sortFilter, tags, triggeringExecution, reloadingForFilters } = this.state;
 
     const hasPipelines = !!(get(app, 'executions.data', []).length || get(app, 'pipelineConfigs.data', []).length);

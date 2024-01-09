@@ -12,6 +12,7 @@ import {
   SERVER_GROUP_WRITER,
   ServerGroupReader,
   ServerGroupWarningMessageService,
+  SETTINGS,
   SubnetReader,
 } from '@spinnaker/core';
 
@@ -325,39 +326,6 @@ angular
         });
       };
 
-      this.forceRestartServerGroup = () => {
-        const serverGroup = this.serverGroup;
-        serverGroup.moniker = { ...this.serverGroup.moniker, stack: 'stack' };
-
-        const taskMonitor = {
-          application: app,
-          title: 'Force restart ' + serverGroup.name,
-        };
-
-        const submitMethod = (params) => {
-          return serverGroupWriter.forceRestartServerGroup(serverGroup, app, params);
-        };
-
-        const confirmationModalParams = {
-          header: 'Really Force restart ' + serverGroup.name + '?',
-          buttonText: 'Force restart ' + serverGroup.name,
-          account: serverGroup.account,
-          taskMonitorConfig: taskMonitor,
-          platformHealthOnlyShowOverride: app.attributes.platformHealthOnlyShowOverride,
-          platformHealthType: 'Ecs',
-          submitMethod: submitMethod,
-          askForReason: true,
-        };
-
-        // ServerGroupWarningMessageService.addDisableWarningMessage(app, serverGroup, confirmationModalParams);
-
-        if (app.attributes.platformHealthOnlyShowOverride && app.attributes.platformHealthOnly) {
-          confirmationModalParams.interestingHealthProviderNames = ['Ecs'];
-        }
-
-        ConfirmationModalService.confirm(confirmationModalParams);
-      };
-
       this.cloneServerGroup = (serverGroup) => {
         $uibModal.open({
           templateUrl: require('../configure/wizard/serverGroupWizard.html'),
@@ -394,6 +362,10 @@ angular
         return AccountService.getAccountDetails(serverGroup.account).then((details) => {
           serverGroup.accountDetails = details;
         });
+      };
+
+      this.isEditEnabled = () => {
+        return SETTINGS.adHocInfraEditEnabled;
       };
     },
   ]);
