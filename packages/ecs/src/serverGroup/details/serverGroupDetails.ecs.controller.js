@@ -6,12 +6,14 @@ import { chain, filter, find, has, isEmpty } from 'lodash';
 
 import {
   AccountService,
+  AuthenticationService,
   ConfirmationModalService,
   FirewallLabels,
   OVERRIDE_REGISTRY,
   SERVER_GROUP_WRITER,
   ServerGroupReader,
   ServerGroupWarningMessageService,
+  SETTINGS,
   SubnetReader,
 } from '@spinnaker/core';
 
@@ -394,6 +396,10 @@ angular
         return AccountService.getAccountDetails(serverGroup.account).then((details) => {
           serverGroup.accountDetails = details;
         });
+      };
+
+      this.isEditEnabled = () => {
+        return SETTINGS.adHocInfraEditEnabled;
       };
     },
   ]);

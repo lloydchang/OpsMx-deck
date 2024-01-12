@@ -34,7 +34,11 @@
       </h3>
     </div>
     <div>
-      <div class="actions" ng-class="{ insights: ctrl.serverGroup.insightActions.length > 0 }">
+      <div
+        class="actions"
+        ng-class="{ insights: ctrl.serverGroup.insightActions.length > 0 }"
+        ng-if="ctrl.isEditEnabled()"
+      >
         <div class="dropdown" uib-dropdown dropdown-append-to-body>
           <button type="button" class="btn btn-sm btn-primary dropdown-toggle" uib-dropdown-toggle>
             Server Group Actions <span class="caret"></span>
