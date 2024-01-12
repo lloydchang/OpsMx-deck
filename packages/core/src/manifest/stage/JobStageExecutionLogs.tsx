@@ -51,6 +51,16 @@ export class JobStageExecutionLogs extends React.Component<IJobStageExecutionLog
   public render() {
     const { manifest } = this.state;
     const { externalLink, podNamesProviders, location, account } = this.props;
+
+    // Added for Cisco : Without checking manifest.empty(), redirect to link if it didnt contain {{
+    if (externalLink && !externalLink.includes('{{')) {
+      return (
+        <a target="_blank" href={externalLink}>
+          Console Output (External)
+        </a>
+      );
+    }
+
     // prefer links to external logging platforms
     if (!isEmpty(manifest) && externalLink) {
       return (
